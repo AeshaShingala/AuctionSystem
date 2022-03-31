@@ -27,7 +27,7 @@
 	</head>
 
 	<body>
-<h1>${user}</h1>
+<h1>"${user}"</h1>
 		<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
 			<div class="container">
 				<a class="navbar-brand" href="#">Registration</a>
@@ -55,10 +55,10 @@
 						<div class="card">
 							<div class="card-header">Register</div>
 							<div class="card-body">
-							<c:if test = "${user == 'bidder'}">
+							<c:if test = "${user == bidder}">
 								<form name="my-form" action="http://localhost:8080/bidder/data" method="post">							
 							</c:if>
-							<c:if test = "${user == 'auctioneer'}">
+							<c:if test = "${user == auctioneer}">
 								<form name="my-form" action="http://localhost:8080/auctioneer/data" method="post">							
 							</c:if>
 									<div class="form-group row">

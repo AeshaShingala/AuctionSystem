@@ -8,15 +8,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.simformsolutions.auction.model.AuctionHouse;
 import com.simformsolutions.auction.model.Auctioneer;
 import com.simformsolutions.auction.model.Bidder;
+import com.simformsolutions.auction.repository.AuctionHouseRepository;
 import com.simformsolutions.auction.repository.AuctioneerRepository;
 import com.simformsolutions.auction.repository.BidderRepository;
 
 @Controller
 public class RegistrationController {
 	
-	
+	@Autowired
+	AuctionHouseRepository auctionHouseRepository ;
 	@Autowired
 	BidderRepository bidderRepository;
 	@Autowired
@@ -36,13 +39,6 @@ public class RegistrationController {
 		return new ModelAndView("userRegistration").addObject("user",user);
 	}
 	
-	//Auctioneer Register Page
-	@RequestMapping(value= "/auctioneer/register",method = RequestMethod.GET)
-	public ModelAndView auctioneerRegister() {
-		String user = "auctioneer";
-		return new ModelAndView("userRegistration").addObject("user",user);
-	}
-	
 	//Bidder Data Handler
 	@RequestMapping(value= "/bidder/data",method = RequestMethod.POST)
 	@ResponseBody
@@ -51,11 +47,32 @@ public class RegistrationController {
 		return "<h1>You Are Registered as bidder</h1>";
 	}
 	
+	//Auctioneer Register Page
+	@RequestMapping(value= "/auctioneer/register",method = RequestMethod.GET)
+	public ModelAndView auctioneerRegister() {
+		String user = "auctioneer";
+		return new ModelAndView("userRegistration").addObject("user",user);
+	}
+	
 	//Auctioneer Data Handler
 	@RequestMapping(value= "/auctioneer/data",method = RequestMethod.POST)
 	@ResponseBody
 	public String auctioneerData(@ModelAttribute Auctioneer auctioneer) {
 		auctioneerRepository.save(auctioneer);
 		return "<h1>You Are Registered as auctioneer</h1>";
+	}
+	
+	// creating an auction house
+	@RequestMapping("/auctionHouse/register")
+	public String auctionHouseRegister()
+	{
+		return "auctionHouseRegistration";
+	}
+			
+	@RequestMapping(value= "/auctionHouse/data",method = RequestMethod.POST)
+	@ResponseBody
+	public String auctionHouse(@ModelAttribute AuctionHouse auctionHouse) {
+		auctionHouseRepository.save(auctionHouse);
+		return "<h1>Added</h1>";
 	}
 }

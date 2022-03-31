@@ -14,7 +14,7 @@ public class AuctionHouse {
 	@Id
 	private int auctionHouseId;
 	private String name;
-	private int contact;
+	private long contact;
 	
 	@OneToMany(targetEntity = Auctioneer.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "fkAuctionHouseId",referencedColumnName = "auctionHouseId")
@@ -36,11 +36,11 @@ public class AuctionHouse {
 		this.name = name;
 	}
 
-	public int getContact() {
+	public long getContact() {
 		return contact;
 	}
 
-	public void setContact(int contact) {
+	public void setContact(long contact) {
 		this.contact = contact;
 	}
 

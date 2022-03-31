@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -12,11 +14,12 @@ import javax.persistence.OneToMany;
 public class Bidder {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int bidderId;
 	private String name;
 	private String email;
 	private String password;
-	private int contact;
+	private long contact;
 	
 	@OneToMany(targetEntity = Lot.class, cascade = CascadeType.ALL)
 	@JoinColumn(name="fkBidderId",referencedColumnName = "bidderId")
@@ -46,10 +49,10 @@ public class Bidder {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getContact() {
+	public long getContact() {
 		return contact;
 	}
-	public void setContact(int contact) {
+	public void setContact(long contact) {
 		this.contact = contact;
 	}
 	

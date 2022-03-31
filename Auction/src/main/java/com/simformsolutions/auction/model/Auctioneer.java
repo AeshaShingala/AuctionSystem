@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -11,12 +13,13 @@ import javax.persistence.OneToMany;
 @Entity
 public class Auctioneer {
 
-	@Id 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int auctioneerId;
 	private String name;
 	private String email;
 	private String password;
-	private int contact;
+	private long contact;
 	
 	@OneToMany(targetEntity = Auction.class, cascade = CascadeType.ALL)
 	@JoinColumn(name= "fkAuctioneerId", referencedColumnName = "auctioneerId")
@@ -46,10 +49,10 @@ public class Auctioneer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getContact() {
+	public long getContact() {
 		return contact;
 	}
-	public void setContact(int contact) {
+	public void setContact(long contact) {
 		this.contact = contact;
 	}
 	public List<Auction> getAuctions() {

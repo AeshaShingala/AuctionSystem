@@ -68,7 +68,8 @@ public class RegistrationController {
 	{
 		return "auctionHouseRegistration";
 	}
-			
+	
+	//adding new auction house entry
 	@RequestMapping(value= "/auctionHouse/data",method = RequestMethod.POST)
 	@ResponseBody
 	public String auctionHouse(@ModelAttribute AuctionHouse auctionHouse) {

@@ -8,6 +8,6 @@
 </head>
 <body>
 
-
+   Display all auction entries here.
 </body>
 </html>

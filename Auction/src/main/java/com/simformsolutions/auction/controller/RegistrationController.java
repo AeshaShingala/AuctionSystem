@@ -18,10 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.AuctionHouse;
 import com.simformsolutions.auction.model.Auctioneer;
 import com.simformsolutions.auction.model.Bidder;
 import com.simformsolutions.auction.repository.AuctionHouseRepository;
+import com.simformsolutions.auction.repository.AuctionRepository;
 import com.simformsolutions.auction.repository.AuctioneerRepository;
 import com.simformsolutions.auction.repository.BidderRepository;
 
@@ -29,14 +31,20 @@ import com.simformsolutions.auction.repository.BidderRepository;
 public class RegistrationController {
 	
 	@Autowired
-	AuctionHouseRepository auctionHouseRepository ;
+	private AuctionHouseRepository auctionHouseRepository ;
 	@Autowired
-	BidderRepository bidderRepository;
+	private BidderRepository bidderRepository;
 	@Autowired
+<<<<<<< HEAD
 	AuctioneerRepository auctioneerRepository;
 	
 	//Location For Storing Images
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/auctionHouseImage";
+=======
+	private AuctioneerRepository auctioneerRepository;
+	@Autowired
+	private AuctionRepository auctionRepository;
+>>>>>>> branch 'main' of https://github.com/AeshaShingala/AuctionSystem.git
 
 	@Bean(name = "multipartResolver")
 	public CommonsMultipartResolver multipartResolver() {
@@ -87,7 +95,6 @@ public class RegistrationController {
 	{
 		return "auctionHouseRegistration";
 	}
-	
 	//adding new auction house
 	@RequestMapping(value= "/auctionhouse/data",method = RequestMethod.POST)
 	public ModelAndView auctionHouse(@ModelAttribute AuctionHouse auctionHouse,@RequestParam("imagee") MultipartFile file) {
@@ -101,9 +108,6 @@ public class RegistrationController {
 
 			e.printStackTrace();
 		}
-		
-		auctionHouseRepository.save(auctionHouse);
-		return new ModelAndView("auctionHouses").addObject("auctionHouse", auctionHouse);
 	}
 	
 	//Displays All AuctionHouses
@@ -111,9 +115,7 @@ public class RegistrationController {
 	public ModelAndView auctionHouses() {
 		
 		List<AuctionHouse> listOfAuctionHouses = auctionHouseRepository.findAll();
-		System.out.println(listOfAuctionHouses.get(0).getName());
 		return new ModelAndView("auctionHouses").addObject("listOfAuctionHouses", listOfAuctionHouses);
 	}
-	
 	
 }

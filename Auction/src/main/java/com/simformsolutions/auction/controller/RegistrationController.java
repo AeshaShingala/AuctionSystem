@@ -35,16 +35,14 @@ public class RegistrationController {
 	@Autowired
 	private BidderRepository bidderRepository;
 	@Autowired
-<<<<<<< HEAD
 	AuctioneerRepository auctioneerRepository;
 	
 	//Location For Storing Images
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/auctionHouseImage";
-=======
-	private AuctioneerRepository auctioneerRepository;
+
 	@Autowired
 	private AuctionRepository auctionRepository;
->>>>>>> branch 'main' of https://github.com/AeshaShingala/AuctionSystem.git
+
 
 	@Bean(name = "multipartResolver")
 	public CommonsMultipartResolver multipartResolver() {
@@ -108,6 +106,8 @@ public class RegistrationController {
 
 			e.printStackTrace();
 		}
+		auctionHouseRepository.save(auctionHouse);
+		return new ModelAndView("auctionHouses").addObject("auctionHouse", auctionHouse);
 	}
 	
 	//Displays All AuctionHouses

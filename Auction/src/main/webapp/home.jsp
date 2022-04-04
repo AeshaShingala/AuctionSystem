@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+   Display all auction entries here.
 </body>
 </html>

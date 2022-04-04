@@ -31,18 +31,19 @@ import com.simformsolutions.auction.repository.BidderRepository;
 public class RegistrationController {
 	
 	@Autowired
-	private AuctionHouseRepository auctionHouseRepository ;
+	private AuctionHouseRepository auctionHouseRepository;
+	
 	@Autowired
 	private BidderRepository bidderRepository;
+	
 	@Autowired
-	AuctioneerRepository auctioneerRepository;
+	private AuctioneerRepository auctioneerRepository;
+	
+	@Autowired
+	private AuctionRepository auctionRepository;
 	
 	//Location For Storing Images
 	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/auctionHouseImage";
-
-	@Autowired
-	private AuctionRepository auctionRepository;
-
 
 	@Bean(name = "multipartResolver")
 	public CommonsMultipartResolver multipartResolver() {
@@ -118,4 +119,10 @@ public class RegistrationController {
 		return new ModelAndView("auctionHouses").addObject("listOfAuctionHouses", listOfAuctionHouses);
 	}
 	
+	@RequestMapping("/auction/register")
+	public String auctionRegister(@ModelAttribute Auction auction){
+		auctionRepository.save(auction);
+		return "";
+			
+	}
 }

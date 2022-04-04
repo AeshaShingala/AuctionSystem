@@ -18,7 +18,16 @@ public class AuctionHouse {
 	private int auctionHouseId;
 	private String name;
 	private long contact;
+	private String image;
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@OneToMany(targetEntity = Auctioneer.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "fkAuctionHouseId",referencedColumnName = "auctionHouseId")
 	private List<Auctioneer> auctioneer;

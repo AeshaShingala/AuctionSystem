@@ -1,11 +1,21 @@
 package com.simformsolutions.auction.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simformsolutions.auction.model.AuctionHouse;
@@ -24,12 +34,21 @@ public class RegistrationController {
 	BidderRepository bidderRepository;
 	@Autowired
 	AuctioneerRepository auctioneerRepository;
+	
+	//Location For Storing Images
+	public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/webapp/auctionHouseImage";
 
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+		multipartResolver.setMaxUploadSize(2000000);
+		return multipartResolver;
+	}
+	
 	//Home Page
 	@RequestMapping("/")
-	@ResponseBody
 	public String home() {
-		return "<h1>Hello World</h1>";
+		return "home";
 	}
 	
 	//Bidder Register Page
@@ -63,17 +82,38 @@ public class RegistrationController {
 	}
 	
 	// creating an auction house
-	@RequestMapping("/auctionHouse/register")
+	@RequestMapping("/auctionhouse/register")
 	public String auctionHouseRegister()
 	{
 		return "auctionHouseRegistration";
 	}
 	
-	//adding new auction house entry
-	@RequestMapping(value= "/auctionHouse/data",method = RequestMethod.POST)
-	@ResponseBody
-	public String auctionHouse(@ModelAttribute AuctionHouse auctionHouse) {
+	//adding new auction house
+	@RequestMapping(value= "/auctionhouse/data",method = RequestMethod.POST)
+	public ModelAndView auctionHouse(@ModelAttribute AuctionHouse auctionHouse,@RequestParam("imagee") MultipartFile file) {
+		
+		String fileName = file.getOriginalFilename();
+		auctionHouse.setImage(fileName);
+		Path path = Paths.get(uploadDirectory,fileName);
+		try {
+			Files.write(path, file.getBytes());
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		
 		auctionHouseRepository.save(auctionHouse);
-		return "<h1>Added</h1>";
+		return new ModelAndView("auctionHouses").addObject("auctionHouse", auctionHouse);
 	}
+	
+	//Displays All AuctionHouses
+	@RequestMapping("/auctionhouses")
+	public ModelAndView auctionHouses() {
+		
+		List<AuctionHouse> listOfAuctionHouses = auctionHouseRepository.findAll();
+		System.out.println(listOfAuctionHouses.get(0).getName());
+		return new ModelAndView("auctionHouses").addObject("listOfAuctionHouses", listOfAuctionHouses);
+	}
+	
+	
 }

@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Auction Houses</title>
+<title>Insert title here</title>
 </head>
 <body>
-
 
 </body>
 </html>

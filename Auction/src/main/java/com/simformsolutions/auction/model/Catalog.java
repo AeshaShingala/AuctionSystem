@@ -54,8 +54,8 @@ public class Catalog {
 		return lots;
 	}
 
-	public void setLots(List<Lot> lots) {
-		this.lots = lots;
+	public void setLots(Lot lot) {
+		this.lots.add(lot);
 	}
 
 }

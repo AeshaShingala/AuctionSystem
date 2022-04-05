@@ -70,6 +70,14 @@
 									</div>
 								</div>
 								<div class="form-group row">
+									<label for="category"
+										class="col-md-4 col-form-label text-md-right">Category</label>
+									<div class="col-md-6">
+										<input required="required" type="text" id="category"
+											name="category" class="form-control">
+									</div>
+								</div>
+								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right">
 										Start Date:</label>
 									<div class="col-md-6">

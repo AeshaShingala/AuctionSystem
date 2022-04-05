@@ -11,7 +11,8 @@ import com.simformsolutions.auction.controller.RegistrationController;
 public class AuctionApplication {
 
 	public static void main(String[] args) {
-		new File(RegistrationController.uploadDirectory).mkdir();
+		new File(RegistrationController.uploadAuctionDirectory).mkdir();
+		new File(RegistrationController.uploadHouseDirectory).mkdir();
 		SpringApplication.run(AuctionApplication.class, args);
 	}
 

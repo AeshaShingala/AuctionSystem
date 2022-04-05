@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!doctype html>
 <html lang="en">
 
@@ -70,7 +71,7 @@
 								<label for="name" class="col-md-4 col-form-label text-md-right">Enter
 									Name</label>
 								<div class="col-md-6">
-									<input type="text" id="name" class="form-control" name="name">
+									<input required="required" type="text" id="name" class="form-control" name="name">
 								</div>
 							</div>
 							<div class="form-group row">
@@ -78,7 +79,7 @@
 									class="col-md-4 col-form-label text-md-right">Enter
 									Password</label>
 								<div class="col-md-6">
-									<input type="text" id="password" class="form-control"
+									<input required="required" type="password" id="password" class="form-control"
 										name="password">
 								</div>
 							</div>
@@ -87,7 +88,7 @@
 								<label for="email" class="col-md-4 col-form-label text-md-right">E-Mail
 									Address</label>
 								<div class="col-md-6">
-									<input type="text" id="email" class="form-control" name="email">
+									<input required="required" type="email" id="email" class="form-control" name="email">
 								</div>
 							</div>
 
@@ -96,16 +97,27 @@
 									class="col-md-4 col-form-label text-md-right">Phone
 									Number</label>
 								<div class="col-md-6">
-									<input type="number" id="contact" class="form-control"
+									<input required="required" maxlength="10" type="number" id="contact" class="form-control"
 										name="contact">
 								</div>
 							</div>
-
+							<div class="form-group row">
+								<c:if test="${user == 'auctioneer'}">
+									<label class="col-md-4 col-form-label text-md-right">Auction
+										House</label>
+									<form:select required="required" path="listAuctionHouses" id="selectedAuctionHouse"
+										name="selectedAuctionHouse">
+										<div class="col-md-6 center">
+											<form:option value="-" label="--Please Select Auction House" />
+											<form:options items="${listAuctionHouses}"
+												itemValue="auctionHouseId" itemLabel="name" />
+										</div>
+									</form:select>
+								</c:if>
+							</div>
 							<div class="col-md-6 offset-md-4">
 								<button type="submit" class="btn btn-primary">Register</button>
 							</div>
-
-							</form>
 						</div>
 					</div>
 				</div>

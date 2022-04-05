@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -16,21 +18,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Auction {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int auctionId;
 	private String title;
 	private String description;
 	private String image;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate date;
+	private LocalDate startDate;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalTime startTime;
-	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-	private LocalTime endTime;
+	private long duration;
+	
 
 	@OneToMany(targetEntity = Bidder.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "fkAuctionId", referencedColumnName = "auctionId")
 	private List<Bidder> bidder;
-
 
 	@OneToOne(cascade = CascadeType.ALL, targetEntity = Catalog.class)
 	@JoinColumn(name = "fkCatalogId")
@@ -76,14 +78,6 @@ public class Auction {
 		this.image = image;
 	}
 
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
 	public LocalTime getStartTime() {
 		return startTime;
 	}
@@ -92,12 +86,20 @@ public class Auction {
 		this.startTime = startTime;
 	}
 
-	public LocalTime getEndTime() {
-		return endTime;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setEndTime(LocalTime endTime) {
-		this.endTime = endTime;
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
+
+	public long getDuration() {
+		return duration;
+	}
+
+	public void setDuration(long duration) {
+		this.duration = duration;
 	}
 
 	public List<Bidder> getBidder() {

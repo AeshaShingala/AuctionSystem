@@ -52,60 +52,35 @@
 					<div class="card">
 						<div class="card-header">Register</div>
 						<div class="card-body">
-							<form name="my-form" action="http://localhost:8080/auction/data"
-								method="post" enctype="multipart/form-data">
-								<div class="form-group row">
-									<label for="name" class="col-md-4 col-form-label text-md-right">Enter
+							<form name="my-form"
+								action="http://localhost:8080/auction/register" method="post">
+							<div class="form-group row">
+									<label for="name"
+										class="col-md-4 col-form-label text-md-right">Enter
 										Name</label>
 									<div class="col-md-6">
-										<input required="required" type="text" id="title"
-											class="form-control" name="title">
+										<input type="text" id="title" class="form-control"
+											name="title">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="name" class="col-md-4 col-form-label text-md-right">Description</label>
+									<label for="name"
+										class="col-md-4 col-form-label text-md-right">Description</label>
 									<div class="col-md-6">
-										<input required="required" type="text" id="description"
-											name="description" class="form-control">
+										<input type="text" id="description" name="description" class="form-control">
 									</div>
 								</div>
-								<div class="form-group row">
-									<label class="col-md-4 col-form-label text-md-right">
-										Start Date:</label>
-									<div class="col-md-6">
-										<input required="required" type="date" id="startDate"
-											class="form-control" name="startDate">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-md-4 col-form-label text-md-right">
-										Start Time:</label>
-									<div class="col-md-6">
-										<input required="required" type="time" id="startTime"
-											name="startTime">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-md-4 col-form-label text-md-right">
-										Duration</label>
-									<div class="col-md-6">
-										<input required="required" type="number" id="duration"
-											name="duration">
-									</div>
-								</div>
+								
+								
 
-								<div class="form-group row">
-									<label class="col-md-4 col-form-label text-md-right">Photo:
-									</label> <input required="required" type="file" name="imagee" />
-								</div>
 								<div class="col-md-6 offset-md-4">
 									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
-							</form>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 
 	</main>

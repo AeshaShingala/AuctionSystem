@@ -60,8 +60,8 @@ public class AuctionHouse {
 		return auctioneer;
 	}
 
-	public void setAuctioneer(List<Auctioneer> auctioneer) {
-		this.auctioneer = auctioneer;
+	public void setAuctioneer(Auctioneer auctioneer) {
+		this.auctioneer.add(auctioneer);
 	}
 	
 }

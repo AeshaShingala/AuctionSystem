@@ -29,13 +29,13 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="static/css/style.css">
 
-<title>Auction Registration</title>
+<title>Auction House Registration</title>
 </head>
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
 		<div class="container">
-			<a class="navbar-brand">Create Auction</a>
+			<a class="navbar-brand">Create Auction House</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -52,54 +52,32 @@
 					<div class="card">
 						<div class="card-header">Register</div>
 						<div class="card-body">
-							<form name="my-form" action="http://localhost:8080/auction/data"
-								method="post" enctype="multipart/form-data">
+							<form name="my-form" enctype="multipart/form-data"
+								action="http://localhost:8080/auctionHouse/data" method="post">
 								<div class="form-group row">
 									<label for="name" class="col-md-4 col-form-label text-md-right">Enter
 										Name</label>
 									<div class="col-md-6">
-										<input required="required" type="text" id="title"
-											class="form-control" name="title">
+										<input type="text" id="name" class="form-control" name="name">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="name" class="col-md-4 col-form-label text-md-right">Description</label>
+									<label for="contact"
+										class="col-md-4 col-form-label text-md-right">Phone
+										Number</label>
 									<div class="col-md-6">
-										<input required="required" type="text" id="description"
-											name="description" class="form-control">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-md-4 col-form-label text-md-right">
-										Start Date:</label>
-									<div class="col-md-6">
-										<input required="required" type="date" id="startDate"
-											class="form-control" name="startDate">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-md-4 col-form-label text-md-right">
-										Start Time:</label>
-									<div class="col-md-6">
-										<input required="required" type="time" id="startTime"
-											name="startTime">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label class="col-md-4 col-form-label text-md-right">
-										Duration</label>
-									<div class="col-md-6">
-										<input required="required" type="number" id="duration"
-											name="duration">
+										<input type="number" id="contact" name="contact"
+											class="form-control">
 									</div>
 								</div>
 
 								<div class="form-group row">
-									<label class="col-md-4 col-form-label text-md-right">Photo:
-									</label> <input required="required" type="file" name="imagee" />
+									<label class="col-md-4 col-form-label text-md-right">Photo: </label> 
+									<input type="file" name="imagee"/>
 								</div>
+
 								<div class="col-md-6 offset-md-4">
-									<button type="submit" class="btn btn-primary">Add</button>
+									<button type="submit" class="btn btn-primary">Register</button>
 								</div>
 							</form>
 						</div>

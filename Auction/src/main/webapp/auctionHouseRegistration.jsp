@@ -53,12 +53,12 @@
 						<div class="card-header">Register</div>
 						<div class="card-body">
 							<form name="my-form" enctype="multipart/form-data"
-								action="http://localhost:8080/auctionHouse/data" method="post">
+								action="http://localhost:8080/auctionhouse/data" method="post">
 								<div class="form-group row">
 									<label for="name" class="col-md-4 col-form-label text-md-right">Enter
 										Name</label>
 									<div class="col-md-6">
-										<input type="text" id="name" class="form-control" name="name">
+										<input required="required" type="text" id="name" class="form-control" name="name">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -66,14 +66,14 @@
 										class="col-md-4 col-form-label text-md-right">Phone
 										Number</label>
 									<div class="col-md-6">
-										<input type="number" id="contact" name="contact"
+										<input required="required" type="number" id="contact" name="contact"
 											class="form-control">
 									</div>
 								</div>
 
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right">Photo: </label> 
-									<input type="file" name="imagee"/>
+									<input required="required" type="file" name="imagee"/>
 								</div>
 
 								<div class="col-md-6 offset-md-4">

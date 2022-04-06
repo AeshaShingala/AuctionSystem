@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Catalog {
@@ -22,17 +21,6 @@ public class Catalog {
 	@OneToMany(targetEntity = Lot.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "fkCatalogId", referencedColumnName = "catalogId")
 	private List<Lot> lots;
-
-	@OneToOne(mappedBy = "catalog")
-	private Auction auction;
-
-	public Auction getAuction() {
-		return auction;
-	}
-
-	public void setAuction(Auction auction) {
-		this.auction = auction;
-	}
 
 	public int getCatalogId() {
 		return catalogId;

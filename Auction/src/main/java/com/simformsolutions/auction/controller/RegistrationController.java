@@ -119,7 +119,7 @@ public class RegistrationController {
 
 		AuctionHouse auc = auctionHouseRepository.findById(auctionHouseId).orElse(null);
 		auc.setAuctioneer(auctioneer);
-		auctioneerRepository.save(auctioneer);
+		auctionHouseRepository.save(auc);
 		return "<h1>You Are Registered as auctioneer</h1>";
 	}
 
@@ -137,18 +137,18 @@ public class RegistrationController {
 		return "auctionRegistration";
 	}
 
+	//handle auction data
 	@RequestMapping(value = "/auction/data", method = RequestMethod.POST)
 	public ModelAndView auctionData(@ModelAttribute Auction auction,@RequestParam("category") String category, @RequestParam("imagee") MultipartFile file) {
 
 		
 		String fileName = AuctionUtility.saveImage(uploadAuctionDirectory, file);
 		auction.setImage(fileName);
-		Path path = Paths.get(uploadAuctionDirectory, fileName);
-		auctionRepository.save(auction);
 		Catalog catalog = new Catalog();
-		catalog.setAuction(auction);
 		catalog.setCategory(category);
-		return new ModelAndView("lotRegistration").addObject("catalog",catalogRepository.save(catalog)).addObject("auction",auction);
+		auction.setCatalog(catalog);
+		Auction catId= auctionRepository.save(auction);
+		return new ModelAndView("lotRegistration").addObject("catalog",catId.getCatalog()).addObject("auction",auction);
 	}
 
 	// Register Lot

@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,21 +32,22 @@ public class Auction {
 	@OneToMany(targetEntity = Bidder.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "fkAuctionId", referencedColumnName = "auctionId")
 	private List<Bidder> bidder;
-
-	@OneToOne(cascade = CascadeType.ALL, targetEntity = Catalog.class)
-	@JoinColumn(name = "fkCatalogId")
-	private Catalog catalog;
-
-	public Catalog getCatalog() {
-		return catalog;
-	}
-
-	public void setCatalog(Catalog catalog) {
-		this.catalog = catalog;
-	}
+	
+	@OneToMany(targetEntity = Lot.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "fkCatalogId", referencedColumnName = "auctionId")
+	private List<Lot> catalog;
 
 	public int getAuctionId() {
 		return auctionId;
+	}
+
+	public List<Lot> getCatalog() {
+		return catalog;
+	}
+
+	//change this to list of lots
+	public void setCatalog(Lot catalog) {
+		this.catalog.add(catalog);
 	}
 
 	public void setAuctionId(int auctionId) {

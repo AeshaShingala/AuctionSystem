@@ -41,11 +41,9 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link"
-						href="http://localhost:8080/bidder/register">Register As
-							Bidder</a></li>
+						href="#">Login</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="http://localhost:8080/auctioneer/register">Register As
-							Auctioneer</a></li>
+						href="#">Sign Up</a></li>
 				</ul>
 
 			</div>
@@ -108,7 +106,7 @@
 									<form:select required="required" path="listAuctionHouses" id="selectedAuctionHouse"
 										name="selectedAuctionHouse">
 										<div class="col-md-6 center">
-											<form:option value="-" label="--Please Select Auction House" />
+											<form:option value="-" label="--Please Select Auction House--" />
 											<form:options items="${listAuctionHouses}"
 												itemValue="auctionHouseId" itemLabel="name" />
 										</div>

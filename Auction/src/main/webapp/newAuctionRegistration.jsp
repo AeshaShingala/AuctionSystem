@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!doctype html>
 <html lang="en">
@@ -70,14 +71,6 @@
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="category"
-										class="col-md-4 col-form-label text-md-right">Category</label>
-									<div class="col-md-6">
-										<input required="required" type="text" id="category"
-											name="category" class="form-control">
-									</div>
-								</div>
-								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right">
 										Start Date:</label>
 									<div class="col-md-6">
@@ -106,6 +99,17 @@
 									<label class="col-md-4 col-form-label text-md-right">Photo:
 									</label> <input required="required" type="file" name="imagee" />
 								</div>
+								<div class="form-group row">
+									<label class="col-md-4 col-form-label text-md-right">Auctioneer</label>
+									<form:select required="required" path="listAuctioneers"
+										id="selectedAuctioneer" name="selectedAuctioneer">
+										<div class="col-md-6 center">
+											<form:option value="-" label="--Please Select Auctioneer--" />
+											<form:options items="${listAuctioneers}"
+												itemValue="auctioneerId" itemLabel="name" />
+										</div>
+									</form:select>
+								</div>
 								<div class="col-md-6 offset-md-4">
 									<button type="submit" class="btn btn-primary">Add</button>
 								</div>
@@ -115,7 +119,6 @@
 				</div>
 			</div>
 		</div>
-
 	</main>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

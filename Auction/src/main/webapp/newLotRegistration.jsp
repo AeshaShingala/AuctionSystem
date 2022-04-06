@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!doctype html>
 <html lang="en">
@@ -29,7 +30,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="static/css/style.css">
 
-<title>Auction House Registration</title>
+<title>Lot Registration</title>
 </head>
 <body>
 
@@ -50,28 +51,37 @@
 			<div class="row justify-content-center">
 				<div class="col-md-8">
 					<div class="card">
-						<div class="card-header">Register</div>
+						<div class="card-header">Add lots to catalog</div>
 						<div class="card-body">
 							<form name="my-form" enctype="multipart/form-data"
 								action="http://localhost:8080/lot/data" method="post">
 								<div class="form-group row">
-<!-- 									<center> -->
-										<h5>${auction.description}</h5>
-										<div class="col-md-8">
-											<label for="catalogId"
-												class="col-md-4 col-form-label text-md-right">Catalog</label>
-											<input required="required" type="text" id="catalogId"
-												class="form-control" name="catalogId"
-												value=${catalog.catalogId } readonly="readonly">
-										</div>
-<!-- 									</center> -->
-
-
+									<h5>${auction.description}</h5>
+									<br>
+									<div class="col-md-8">
+										<label for="auctionId"
+											class="col-md-4 col-form-label text-md-right"></label> <input
+											required="required" readonly="readonly" type="text"
+											id="auctionId" class="form-control" name="auctionId"
+											value=${auction.auctionId }>
+									</div>
 								</div>
+								<div>
+									<label class="col-md-4 col-form-label text-md-right">Category</label>
+									<form:select required="required" path="listCategories"
+										id="selectedCategory" name="selectedCategory">
+										<div class="col-md-6 center">
+											<form:option value="-" label="--Please Select Category--" />
+											<form:options items="${listCategories}"
+												itemValue="categoryId" itemLabel="category" />
+										</div>
+									</form:select>
+								</div>
+
 								<div id="repeat">
 									<div class="form-group row">
 										<label for="name"
-											class="col-md-4 col-form-label text-md-right">Title </label>
+				    							class="col-md-4 col-form-label text-md-right">Title </label>
 										<div class="col-md-6">
 											<input required="required" type="text" id="title"
 												class="form-control" name="title">

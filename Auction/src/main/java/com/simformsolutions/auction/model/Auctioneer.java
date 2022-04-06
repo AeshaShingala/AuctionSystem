@@ -58,8 +58,8 @@ public class Auctioneer {
 	public List<Auction> getAuctions() {
 		return auctions;
 	}
-	public void setAuctions(List<Auction> auctions) {
-		this.auctions = auctions;
+	public void setAuctions(Auction auctions) {
+		this.auctions.add(auctions);
 	}
 	
 

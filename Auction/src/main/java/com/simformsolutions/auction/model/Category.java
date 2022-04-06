@@ -11,23 +11,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Catalog {
+public class Category {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int catalogId;
+	@GeneratedValue(strategy =GenerationType.IDENTITY )
+	private int categoryId;
 	private String category;
-
+	
 	@OneToMany(targetEntity = Lot.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "fkCatalogId", referencedColumnName = "catalogId")
+	@JoinColumn(name = "fkCategoryId", referencedColumnName = "categoryId")
 	private List<Lot> lots;
 
-	public int getCatalogId() {
-		return catalogId;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCatalogId(int catalogId) {
-		this.catalogId = catalogId;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getCategory() {
@@ -42,8 +42,8 @@ public class Catalog {
 		return lots;
 	}
 
-	public void setLots(Lot lot) {
-		this.lots.add(lot);
+	//change this to list
+	public void setLots(Lot lots) {
+		this.lots.add(lots);
 	}
-
 }

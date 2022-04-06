@@ -1,11 +1,5 @@
 package com.simformsolutions.auction.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -22,13 +16,13 @@ import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.AuctionHouse;
 import com.simformsolutions.auction.model.Auctioneer;
 import com.simformsolutions.auction.model.Bidder;
-import com.simformsolutions.auction.model.Catalog;
 import com.simformsolutions.auction.model.Lot;
+import com.simformsolutions.auction.model.Category;
 import com.simformsolutions.auction.repository.AuctionHouseRepository;
 import com.simformsolutions.auction.repository.AuctionRepository;
 import com.simformsolutions.auction.repository.AuctioneerRepository;
 import com.simformsolutions.auction.repository.BidderRepository;
-import com.simformsolutions.auction.repository.CatalogRepository;
+import com.simformsolutions.auction.repository.CategoryRepository;
 import com.simformsolutions.auction.repository.LotRepository;
 import com.simformsolutions.auction.utility.AuctionUtility;
 
@@ -46,19 +40,19 @@ public class RegistrationController {
 
 	@Autowired
 	private AuctionRepository auctionRepository;
-	
+
 	@Autowired
 	private LotRepository lotRepository;
 
 	@Autowired
-	private CatalogRepository catalogRepository;
-	
+	private CategoryRepository categoryRepository;
+
 	// Location For Storing auction House Images
 	public static String uploadHouseDirectory = System.getProperty("user.dir") + "/src/main/webapp/auctionHouseImage";
 
 	// Location For Storing auction Images
 	public static String uploadAuctionDirectory = System.getProperty("user.dir") + "/src/main/webapp/auctionImage";
-	
+
 	// Location For Storing lot Images
 	public static String uploadLotDirectory = System.getProperty("user.dir") + "/src/main/webapp/lots";
 
@@ -72,36 +66,27 @@ public class RegistrationController {
 	// Home Page
 	@RequestMapping("/")
 	public String home() {
-		return "home";
+		return "redirect:/auctions";
 	}
 
-	// form for creating an auction house
+	// Register Auction House
 	@RequestMapping("/auctionhouse/register")
 	public String auctionHouseRegister() {
 		return "auctionHouseRegistration";
 	}
 
-	// saving new auction house
+	// Auction House Data Handler
 	@RequestMapping(value = "/auctionhouse/data", method = RequestMethod.POST)
-	public ModelAndView auctionHouse(@ModelAttribute AuctionHouse auctionHouse,
+	public ModelAndView auctionHouseData(@ModelAttribute AuctionHouse auctionHouse,
 			@RequestParam("imagee") MultipartFile file) {
 
-		
 		String fileName = AuctionUtility.saveImage(uploadHouseDirectory, file);
 		auctionHouse.setImage(fileName);
 		auctionHouseRepository.save(auctionHouse);
 		return new ModelAndView("auctionHouses").addObject("auctionHouse", auctionHouse);
 	}
 
-	// Displays All AuctionHouses
-	@RequestMapping("/auctionhouses")
-	public ModelAndView displayAuctionHouses() {
-
-		List<AuctionHouse> listOfAuctionHouses = auctionHouseRepository.findAll();
-		return new ModelAndView("auctionHouses").addObject("listOfAuctionHouses", listOfAuctionHouses);
-	}
-
-	// Auctioneer Register Page
+	// Register Auctioneer
 	@RequestMapping(value = "/auctioneer/register", method = RequestMethod.GET)
 	public ModelAndView auctioneerRegister() {
 		String user = "auctioneer";
@@ -111,7 +96,7 @@ public class RegistrationController {
 		return mv;
 	}
 
-	// save Auctioneer Data
+	// Auctioneer Data Handler
 	@RequestMapping(value = "/auctioneer/data", method = RequestMethod.POST)
 	@ResponseBody
 	public String auctioneerData(@ModelAttribute Auctioneer auctioneer,
@@ -123,54 +108,50 @@ public class RegistrationController {
 		return "<h1>You Are Registered as auctioneer</h1>";
 	}
 
-	// Displays All Auctioneers
-	@RequestMapping("/auctioneers")
-	public ModelAndView displayAuctioneers() {
-
-		List<Auctioneer> listOfAuctioneers = auctioneerRepository.findAll();
-		return new ModelAndView("auctioneers").addObject("listOfAuctioneers", listOfAuctioneers);
+	// Register Auction
+	@RequestMapping(value = "/auction/register", method = RequestMethod.GET)
+	public ModelAndView auctionRegister(@ModelAttribute Auction auction) {
+		ModelAndView mv = new ModelAndView("newAuctionRegistration");
+		mv.addObject("listAuctioneers", auctioneerRepository.findAll());
+		return mv;
 	}
 
-	// form page to add auction event
-	@RequestMapping("/auction/register")
-	public String auctionRegister(@ModelAttribute Auction auction) {
-		return "auctionRegistration";
-	}
-
-	//handle auction data
+	// Auction Data Handler
 	@RequestMapping(value = "/auction/data", method = RequestMethod.POST)
-	public ModelAndView auctionData(@ModelAttribute Auction auction,@RequestParam("category") String category, @RequestParam("imagee") MultipartFile file) {
+	@ResponseBody
+	public ModelAndView auctionData(@ModelAttribute Auction auction, @RequestParam("imagee") MultipartFile file,
+			@RequestParam(name = "selectedAuctioneer") int auctioneerId) {
 
-		
 		String fileName = AuctionUtility.saveImage(uploadAuctionDirectory, file);
 		auction.setImage(fileName);
-		Catalog catalog = new Catalog();
-		catalog.setCategory(category);
-		auction.setCatalog(catalog);
-		Auction catId= auctionRepository.save(auction);
-		return new ModelAndView("lotRegistration").addObject("catalog",catId.getCatalog()).addObject("auction",auction);
+		Auctioneer auctioneer = auctioneerRepository.findById(auctioneerId).orElse(null);
+		auctioneer.setAuctions(auction);
+		return new ModelAndView("newLotRegistration").addObject("auction", auctionRepository.save(auction))
+				.addObject("listCategories", categoryRepository.findAll());
 	}
 
 	// Register Lot
 	@RequestMapping("/lot/register")
 	public String lotRegister() {
-		return "lotRegistration";
+		return "newlotRegistration";
 	}
 
 	// Lot Data Handler
 	@RequestMapping(value = "/lot/data", method = RequestMethod.POST)
 	@ResponseBody
-	public String lotData(@ModelAttribute Lot lot,@RequestParam("catalogId") int catalogId,@RequestParam("imagee") MultipartFile file) {
+	public String lotData(@ModelAttribute Lot lot, @RequestParam("auctionId") int catalogId,
+			@RequestParam("imagee") MultipartFile file, @RequestParam("selectedCategory") int categoryId) {
 		String fileName = AuctionUtility.saveImage(uploadLotDirectory, file);
 		lot.setImage(fileName);
-		Catalog catalog = catalogRepository.findById(catalogId).orElse(null);
-		
-		catalog.setLots(lotRepository.save(lot));
-		catalogRepository.save(catalog);
-		return "<h1>Lot Added</h1>";
+		Auction auction = auctionRepository.findById(catalogId).orElse(null);
+		auction.setCatalog(lot);
+		Category category = categoryRepository.findById(categoryId).orElse(null);
+		category.setLots(lot);
+		lotRepository.save(lot);
+		return "<h1>Catalog Added</h1>";
 	}
 
-	// Bidder Register Page
+	// Register Bidder
 	@RequestMapping(value = "/bidder/register", method = RequestMethod.GET)
 	public ModelAndView bidderRegister() {
 		String user = "bidder";

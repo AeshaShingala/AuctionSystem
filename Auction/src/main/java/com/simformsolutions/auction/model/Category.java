@@ -43,7 +43,7 @@ public class Category {
 	}
 
 	//change this to list
-	public void setLots(Lot lots) {
-		this.lots.add(lots);
+	public void setLots(List<Lot> lots) {
+		this.lots=lots;
 	}
 }

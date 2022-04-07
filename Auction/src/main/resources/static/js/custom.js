@@ -3,37 +3,56 @@ console.log("Hello World");
 
 
 $(document).ready(function() {
-	var i = 1
-	 var value=$('#id').val();
+	
+	let number = 1;
+	var value=$('#id').val();
 	$("#add").click(function(e) {
-		i++;
+		number++;
 		value++;
 		event.preventDefault();
-		$('#items').append(
-		'<div class="section"><hr><h4 class="d-inline" >New Student '+i+' </h4>'
-		+'<button class="deleteBtn d-inline btn-sm btn-danger" type="button" id="delete"><i class="fa fa-close" style="font-size:18px"></i></button>'
-		+'<div class="row g-3">'
-			+'<div class="col-sm-4">'
-//				+'<label class="form-label" for="id'+i+'">ID:</label>'
-				+'<input class="form-control form-control-sm" type="text" id="id'+i+'"value='+value+' name="id" readonly>'
-			+'</div>'
-			+'<div class="col-sm-4">'
-//				+'<label class="form-label" for="name'+i+'">Enter Name:</label>'
-				+'<input placeholder="Enter Name" class="form-control form-control-sm" type="text" id="name'+i+'" name="name">'
-			+'</div>'
-			+'<div class="col-sm-4">'
-//				+'<label class="form-label" for="tech'+i+'">Enter Tech:</label>'
-				+'<input placeholder="Enter Tech" class="form-control form-control-sm" type="text" id="tech'+i+'" name="tech">'
-			+'</div>'
-		+'</div>'
-		+'</div>');
-		$("#items").scrollTop($("#items")[0].scrollHeight);
+		$('#repeat').append(
+				'<div id="lot'+number+'">'+
+				'<div class="card-header text-center">'+
+					'Lot '+number+
+						'<button id="delete" type="button" class="mb-auto btn btn-danger float-right">Delete</button>'+
+				'</div>'+
+				'<div class="card-body">'+
+				'<div class="form-group row">'+
+						'<div class="col-sm-4 mb-3">'+
+							'<label for="title'+number+'">Title</label>'+
+							'<input required="required" type="text" id="title'+number+'" class="form-control" name="title">'+
+							'</div>'+
+
+						'<div class="col-sm-8 mb-3">'+
+							'<label for="description'+number+'">Description</label>'+
+							'<input required="required" type="text" id="description'+number+'"'+
+								'class="form-control" name="description">'+
+						'</div>'+
+				'</div>'+
+				'<div class="form-group row">'+
+					'<div class="col-sm-4 mb-3">'+
+						'<label for="quantity'+number+'">Quantity</label>'+
+						'<input required="required" type="number" id="quantity'+number+'"'+
+						'name="quantity" class="form-control">'+
+						'</div>'+
+					'<div class="col-sm-4 mb-3">'+
+						'<label for="basePrice'+number+'">BasePrice</label>'+
+						'<input required="required" type="number" id="basePrice'+number+'"'+
+						'name="basePrice" class="form-control">'+
+					'</div>'+
+					'<div class="col-sm-4 mb-3">'+
+						'<label>Photo:'+
+						'</label> <input required="required" type="file" name="imagee" />'+
+					'</div>'+
+				'</div>'+
+			'</div>'+'</div>');
+			$(document).scrollTop($(document).height());
 		
 	}
 	);
 	$('body').on('click','#delete',function(e) {
-		$(this).parent('div').remove();
-		i--;
+		$("#lot"+number).remove();
+		number--;
 		value--;
 	});
 });

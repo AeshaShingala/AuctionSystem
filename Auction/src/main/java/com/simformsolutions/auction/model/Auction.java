@@ -45,9 +45,14 @@ public class Auction {
 		return catalog;
 	}
 
-	//change this to list of lots
+	//for single lot
 	public void setCatalog(Lot catalog) {
 		this.catalog.add(catalog);
+	}
+	
+	//for list of lots
+	public void setCatalog(List<Lot> catalog) {
+			this.catalog= catalog;
 	}
 
 	public void setAuctionId(int auctionId) {

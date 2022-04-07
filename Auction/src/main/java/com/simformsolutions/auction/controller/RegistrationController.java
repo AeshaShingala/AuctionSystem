@@ -16,14 +16,11 @@ import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.AuctionHouse;
 import com.simformsolutions.auction.model.Auctioneer;
 import com.simformsolutions.auction.model.Bidder;
-import com.simformsolutions.auction.model.Lot;
-import com.simformsolutions.auction.model.Category;
 import com.simformsolutions.auction.repository.AuctionHouseRepository;
 import com.simformsolutions.auction.repository.AuctionRepository;
 import com.simformsolutions.auction.repository.AuctioneerRepository;
 import com.simformsolutions.auction.repository.BidderRepository;
 import com.simformsolutions.auction.repository.CategoryRepository;
-import com.simformsolutions.auction.repository.LotRepository;
 import com.simformsolutions.auction.utility.AuctionUtility;
 
 @Controller
@@ -40,9 +37,6 @@ public class RegistrationController {
 
 	@Autowired
 	private AuctionRepository auctionRepository;
-
-	@Autowired
-	private LotRepository lotRepository;
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -126,30 +120,30 @@ public class RegistrationController {
 		auction.setImage(fileName);
 		Auctioneer auctioneer = auctioneerRepository.findById(auctioneerId).orElse(null);
 		auctioneer.setAuctions(auction);
-		return new ModelAndView("newLotRegistration").addObject("auction", auctionRepository.save(auction))
+		return new ModelAndView("lotsRegistration").addObject("auction", auctionRepository.save(auction))
 				.addObject("listCategories", categoryRepository.findAll());
 	}
 
 	// Register Lot
-	@RequestMapping("/lot/register")
+	@RequestMapping("/lots/register")
 	public String lotRegister() {
-		return "newlotRegistration";
+		return "lotsRegistration";
 	}
 
-	// Lot Data Handler
-	@RequestMapping(value = "/lot/data", method = RequestMethod.POST)
-	@ResponseBody
-	public String lotData(@ModelAttribute Lot lot, @RequestParam("auctionId") int catalogId,
-			@RequestParam("imagee") MultipartFile file, @RequestParam("selectedCategory") int categoryId) {
-		String fileName = AuctionUtility.saveImage(uploadLotDirectory, file);
-		lot.setImage(fileName);
-		Auction auction = auctionRepository.findById(catalogId).orElse(null);
-		auction.setCatalog(lot);
-		Category category = categoryRepository.findById(categoryId).orElse(null);
-		category.setLots(lot);
-		lotRepository.save(lot);
-		return "<h1>Catalog Added</h1>";
-	}
+//	// Lot Data Handler
+//	@RequestMapping(value = "/lot/data", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String lotData(@ModelAttribute Lot lot, @RequestParam("auctionId") int catalogId,
+//			@RequestParam("imagee") MultipartFile file, @RequestParam("selectedCategory") int categoryId) {
+//		String fileName = AuctionUtility.saveImage(uploadLotDirectory, file);
+//		lot.setImage(fileName);
+//		Auction auction = auctionRepository.findById(catalogId).orElse(null);
+//		auction.setCatalog(lot);
+//		Category category = categoryRepository.findById(categoryId).orElse(null);
+////		category.setLots(lot);
+//		lotRepository.save(lot);
+//		return "<h1>Catalog Added</h1>";
+//	}
 
 	// Register Bidder
 	@RequestMapping(value = "/bidder/register", method = RequestMethod.GET)

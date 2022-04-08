@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.Category;
@@ -33,9 +33,9 @@ public class LotController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	// Lot data handler
 	@RequestMapping(value = "/lots/data", method = RequestMethod.POST)
-	@ResponseBody
-	public String auctioneerData(@RequestParam("title") List<String> titles,
+	public ModelAndView auctioneerData(@RequestParam("title") List<String> titles,
 			@RequestParam("description") List<String>	descriptions,
 			@RequestParam("quantity") List<Integer> quantities,
 			@RequestParam("basePrice") List<Integer> basePrices,
@@ -59,11 +59,20 @@ public class LotController {
 			auction.setCatalog(listOfLots);
 		}
 		lotRepository.saveAll(listOfLots);
-		return "<h1>You Are Registered as auctioneer</h1>";
+		return new ModelAndView("catalog").addObject("listOfLots",lotRepository.findAll());
 	}
 	
-	@RequestMapping("temp/lots")
-	public String tempLots(){
-		return "lotsRegistration";
-	}
+//	//Register multiple lots
+//	@RequestMapping("lots/register")
+//	public String tempLots(){
+//		return "lotsRegistration";
+//	}
+	
+
+//	// Register single lot
+//	@RequestMapping("/lot/register")
+//	public String lotRegister() {
+//		return "newLotRegistration";
+//	}
+
 }

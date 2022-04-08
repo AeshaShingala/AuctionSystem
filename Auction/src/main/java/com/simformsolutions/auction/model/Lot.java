@@ -16,6 +16,11 @@ public class Lot {
 	private int basePrice;
 	private String image;
 	
+	public Lot()
+	{
+	
+	}
+	
 	public Lot(String title, String description, int quantity, int basePrice, String image) {
 		this.title = title;
 		this.description = description;

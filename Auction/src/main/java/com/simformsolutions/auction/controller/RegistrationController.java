@@ -71,13 +71,13 @@ public class RegistrationController {
 
 	// Auction House Data Handler
 	@RequestMapping(value = "/auctionhouse/data", method = RequestMethod.POST)
-	public ModelAndView auctionHouseData(@ModelAttribute AuctionHouse auctionHouse,
+	public String auctionHouseData(@ModelAttribute AuctionHouse auctionHouse,
 			@RequestParam("imagee") MultipartFile file) {
 
 		String fileName = AuctionUtility.saveImage(uploadHouseDirectory, file);
 		auctionHouse.setImage(fileName);
 		auctionHouseRepository.save(auctionHouse);
-		return new ModelAndView("auctionHouses").addObject("auctionHouse", auctionHouse);
+		return "auctionHouses";
 	}
 
 	// Register Auctioneer
@@ -95,13 +95,14 @@ public class RegistrationController {
 			@RequestParam(name = "selectedAuctionHouse") int auctionHouseId) {
 
 		if (auctioneerRepository.existsByemail(auctioneer.getEmail()) == true) {
-			return new ModelAndView("auctioneerRegistration").addObject("exists", true).addObject("listAuctionHouses", auctionHouseRepository.findAll());
-			
+			return new ModelAndView("auctioneerRegistration").addObject("exists", true).addObject("listAuctionHouses",
+					auctionHouseRepository.findAll());
+
 		} else {
 			AuctionHouse auc = auctionHouseRepository.findById(auctionHouseId).orElse(null);
 			auc.setAuctioneer(auctioneer);
 			auctionHouseRepository.save(auc);
-			return new ModelAndView("auctions");
+			return new ModelAndView("auctioneers").addObject("listOfAuctioneers", auctioneerRepository.findAll());
 		}
 	}
 
@@ -127,12 +128,6 @@ public class RegistrationController {
 				.addObject("listCategories", categoryRepository.findAll());
 	}
 
-	// Register Lot
-	@RequestMapping("/lots/register")
-	public String lotRegister() {
-		return "lotsRegistration";
-	}
-
 	// Register Bidder
 	@RequestMapping(value = "/bidder/register", method = RequestMethod.GET)
 	public ModelAndView bidderRegister() {
@@ -149,6 +144,5 @@ public class RegistrationController {
 			bidderRepository.save(bidder);
 			return new ModelAndView("auctions");
 		}
-//		return "<h1>You are registered as bidder</h1>";
 	}
 }

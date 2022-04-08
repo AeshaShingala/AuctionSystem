@@ -10,9 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.AuctionHouse;
 import com.simformsolutions.auction.model.Auctioneer;
+import com.simformsolutions.auction.model.Lot;
 import com.simformsolutions.auction.repository.AuctionHouseRepository;
 import com.simformsolutions.auction.repository.AuctionRepository;
 import com.simformsolutions.auction.repository.AuctioneerRepository;
+import com.simformsolutions.auction.repository.LotRepository;
 
 @Controller
 public class DisplayController {
@@ -28,9 +30,9 @@ public class DisplayController {
 	@Autowired
 	private AuctionRepository auctionRepository;
 
-//	@Autowired
-//	private LotRepository lotRepository;
-//
+	@Autowired
+	private LotRepository lotRepository;
+
 //	@Autowired
 //	private CategoryRepository categoryRepository;
 
@@ -55,11 +57,11 @@ public class DisplayController {
 		return new ModelAndView("auctions").addObject("listOfAuctions", listOfAuctions);
 	}
 	
-//	// Displays All Lots/catalog
-//	@RequestMapping("/lots")
-//	public ModelAndView displayLots() {
-//		List<Lots> listOfLots = lotRepository.find);
-//		return new ModelAndView("catalog").addObject("catalog", listOfAuctions);
-//	}
+	// Displays All Lots/catalog
+	@RequestMapping("/lots")
+	public ModelAndView displayLots() {
+		List<Lot> listOfLots = lotRepository.findAll();
+		return new ModelAndView("catalog").addObject("catalog", listOfLots);
+	}
 
 }

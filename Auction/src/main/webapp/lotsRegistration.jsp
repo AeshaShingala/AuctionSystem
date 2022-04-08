@@ -14,7 +14,7 @@
 		<!-- Fonts -->
 		<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
-
+                  
 
 
 		<link rel="icon" href="Favicon.png">
@@ -47,19 +47,17 @@
 				<div class="row justify-content-center">
 					<div class="col-md-8">
 						<div class="card">
-							<div class="card-header">${auction.title} Hello World </div>
+							<div class="card-header">${auction.title}</div>
 							<div class="card-body">
 								<form name="my-form" enctype="multipart/form-data"
 									action="http://localhost:8080/lots/data" method="post">
 									<div class="form-group row">
-										<div class="col-md-1 text-center">
+										<div class="col-md-3 text-center">
 											<label for="auctionId">Catalog</label>
-										</div>
-										<div class="col-md-11">
-
 											<input required="required" type="text" id="auctionId" class="form-control"
 												name="auctionId" value=${auction.auctionId } readonly="readonly">
-
+										</div>
+										<div class="col-md-6">
 											<label class="col-md-4 col-form-label text-md-right">Category</label>
 											<form:select required="required" path="listCategories" id="selectedCategory"
 												name="selectedCategory">
@@ -115,10 +113,8 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<div class="col-sm-6 p-auto">
+										<div class="col-sm-4 p-auto">
 											<button type="submit" class="btn btn-primary">Register</button>
-										</div>
-										<div class="col-sm-6 p-auto">
 											<button type="button" id="add" class="btn btn-primary">Add Another
 												Lot</button>
 										</div>

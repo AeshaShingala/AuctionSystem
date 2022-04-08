@@ -12,7 +12,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		$('#repeat').append(
 				'<div id="lot'+number+'">'+
-				'<div class="card-header text-center">'+
+				'<div class="card-header col-sm-6 text-center">'+
 					'Lot '+number+
 						'<button id="delete" type="button" class="mb-auto btn btn-danger float-right">Delete</button>'+
 				'</div>'+

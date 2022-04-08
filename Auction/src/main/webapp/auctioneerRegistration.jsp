@@ -40,10 +40,8 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link"
-						href="#">Login</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="#">Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Sign Up</a></li>
 				</ul>
 
 			</div>
@@ -57,65 +55,67 @@
 					<div class="card">
 						<div class="card-header">Register</div>
 						<div class="card-body">
-							<c:if test="${user == 'bidder'}">
-								<form name="my-form" action="http://localhost:8080/bidder/data"
-									method="post">
-							</c:if>
-							<c:if test="${user == 'auctioneer'}">
-								<form name="my-form"
-									action="http://localhost:8080/auctioneer/data" method="post">
-							</c:if>
-							<div class="form-group row">
-								<label for="name" class="col-md-4 col-form-label text-md-right">Enter
-									Name</label>
-								<div class="col-md-6">
-									<input required="required" type="text" id="name" class="form-control" name="name">
+							<form name="my-form"
+								action="http://localhost:8080/auctioneer/data" method="post">
+								<c:if test="${exists == true}">
+									<div class="alert alert-warning" role="alert">User
+										Already Exists</div>
+								</c:if>
+								<div class="form-group row">
+									<label for="name" class="col-md-4 col-form-label text-md-right">Enter
+										Name</label>
+									<div class="col-md-6">
+										<input required="required" type="text" id="name"
+											class="form-control" name="name">
+									</div>
 								</div>
-							</div>
-							<div class="form-group row">
-								<label for="password"
-									class="col-md-4 col-form-label text-md-right">Enter
-									Password</label>
-								<div class="col-md-6">
-									<input required="required" type="password" id="password" class="form-control"
-										name="password">
+								<div class="form-group row">
+									<label for="password"
+										class="col-md-4 col-form-label text-md-right">Enter
+										Password</label>
+									<div class="col-md-6">
+										<input required="required" type="password" id="password"
+											class="form-control" name="password">
+									</div>
 								</div>
-							</div>
 
-							<div class="form-group row">
-								<label for="email" class="col-md-4 col-form-label text-md-right">E-Mail
-									Address</label>
-								<div class="col-md-6">
-									<input required="required" type="email" id="email" class="form-control" name="email">
+								<div class="form-group row">
+									<label for="email"
+										class="col-md-4 col-form-label text-md-right">E-Mail
+										Address</label>
+									<div class="col-md-6">
+										<input required="required" type="email" id="email"
+											class="form-control" name="email">
+									</div>
 								</div>
-							</div>
 
-							<div class="form-group row">
-								<label for="contact"
-									class="col-md-4 col-form-label text-md-right">Phone
-									Number</label>
-								<div class="col-md-6">
-									<input required="required" maxlength="10" type="number" id="contact" class="form-control"
-										name="contact">
+								<div class="form-group row">
+									<label for="contact"
+										class="col-md-4 col-form-label text-md-right">Phone
+										Number</label>
+									<div class="col-md-6">
+										<input required="required" maxlength="10" type="number"
+											id="contact" class="form-control" name="contact">
+									</div>
 								</div>
-							</div>
-							<div class="form-group row">
-								<c:if test="${user == 'auctioneer'}">
+								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right">Auction
 										House</label>
-									<form:select required="required" path="listAuctionHouses" id="selectedAuctionHouse"
-										name="selectedAuctionHouse">
+									<form:select required="required" path="listAuctionHouses"
+										id="selectedAuctionHouse" name="selectedAuctionHouse">
 										<div class="col-md-6 center">
-											<form:option value="-" label="--Please Select Auction House--" />
+											<form:option value="-"
+												label="--Please Select Auction House--" />
 											<form:options items="${listAuctionHouses}"
 												itemValue="auctionHouseId" itemLabel="name" />
 										</div>
 									</form:select>
-								</c:if>
-							</div>
-							<div class="col-md-6 offset-md-4">
-								<button type="submit" class="btn btn-primary">Register</button>
-							</div>
+								</div>
+								<div class="col-md-6 offset-md-4">
+									<button type="submit" class="btn btn-primary">Register</button>
+								</div>
+
+							</form>
 						</div>
 					</div>
 				</div>

@@ -83,9 +83,7 @@ public class RegistrationController {
 	// Register Auctioneer
 	@RequestMapping(value = "/auctioneer/register", method = RequestMethod.GET)
 	public ModelAndView auctioneerRegister() {
-		String user = "auctioneer";
-		ModelAndView mv = new ModelAndView("userRegistration");
-		mv.addObject("user", user);
+		ModelAndView mv = new ModelAndView("auctioneerRegistration");
 		mv.addObject("listAuctionHouses", auctionHouseRepository.findAll());
 		return mv;
 	}
@@ -93,13 +91,18 @@ public class RegistrationController {
 	// Auctioneer Data Handler
 	@RequestMapping(value = "/auctioneer/data", method = RequestMethod.POST)
 	@ResponseBody
-	public String auctioneerData(@ModelAttribute Auctioneer auctioneer,
+	public ModelAndView auctioneerData(@ModelAttribute Auctioneer auctioneer,
 			@RequestParam(name = "selectedAuctionHouse") int auctionHouseId) {
 
-		AuctionHouse auc = auctionHouseRepository.findById(auctionHouseId).orElse(null);
-		auc.setAuctioneer(auctioneer);
-		auctionHouseRepository.save(auc);
-		return "<h1>You Are Registered as auctioneer</h1>";
+		if (auctioneerRepository.existsByemail(auctioneer.getEmail()) == true) {
+			return new ModelAndView("auctioneerRegistration").addObject("exists", true).addObject("listAuctionHouses", auctionHouseRepository.findAll());
+			
+		} else {
+			AuctionHouse auc = auctionHouseRepository.findById(auctionHouseId).orElse(null);
+			auc.setAuctioneer(auctioneer);
+			auctionHouseRepository.save(auc);
+			return new ModelAndView("auctions");
+		}
 	}
 
 	// Register Auction
@@ -130,33 +133,22 @@ public class RegistrationController {
 		return "lotsRegistration";
 	}
 
-//	// Lot Data Handler
-//	@RequestMapping(value = "/lot/data", method = RequestMethod.POST)
-//	@ResponseBody
-//	public String lotData(@ModelAttribute Lot lot, @RequestParam("auctionId") int catalogId,
-//			@RequestParam("imagee") MultipartFile file, @RequestParam("selectedCategory") int categoryId) {
-//		String fileName = AuctionUtility.saveImage(uploadLotDirectory, file);
-//		lot.setImage(fileName);
-//		Auction auction = auctionRepository.findById(catalogId).orElse(null);
-//		auction.setCatalog(lot);
-//		Category category = categoryRepository.findById(categoryId).orElse(null);
-////		category.setLots(lot);
-//		lotRepository.save(lot);
-//		return "<h1>Catalog Added</h1>";
-//	}
-
 	// Register Bidder
 	@RequestMapping(value = "/bidder/register", method = RequestMethod.GET)
 	public ModelAndView bidderRegister() {
-		String user = "bidder";
-		return new ModelAndView("userRegistration").addObject("user", user);
+		return new ModelAndView("bidderRegistration");
 	}
 
 	// Bidder Data Handler
 	@RequestMapping(value = "/bidder/data", method = RequestMethod.POST)
 	@ResponseBody
-	public String bidderData(@ModelAttribute Bidder bidder) {
-		bidderRepository.save(bidder);
-		return "<h1>You are registered as bidder</h1>";
+	public ModelAndView bidderData(@ModelAttribute Bidder bidder) {
+		if (bidderRepository.existsByemail(bidder.getEmail()) == true) {
+			return new ModelAndView("bidderRegistration").addObject("exists", true);
+		} else {
+			bidderRepository.save(bidder);
+			return new ModelAndView("auctions");
+		}
+//		return "<h1>You are registered as bidder</h1>";
 	}
 }

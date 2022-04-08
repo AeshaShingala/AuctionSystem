@@ -6,4 +6,6 @@ import com.simformsolutions.auction.model.Auctioneer;
 
 public interface AuctioneerRepository extends JpaRepository<Auctioneer, Integer> {
 
+	boolean existsByemail(String email);
+
 }

@@ -124,6 +124,7 @@ public class RegistrationController {
 		auction.setImage(fileName);
 		Auctioneer auctioneer = auctioneerRepository.findById(auctioneerId).orElse(null);
 		auctioneer.setAuctions(auction);
+		System.out.println(categoryRepository.findAll());
 		return new ModelAndView("lotsRegistration").addObject("auction", auctionRepository.save(auction))
 				.addObject("listCategories", categoryRepository.findAll());
 	}

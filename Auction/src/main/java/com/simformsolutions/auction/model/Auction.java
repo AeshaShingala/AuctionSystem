@@ -26,8 +26,27 @@ public class Auction {
 	private LocalDate startDate;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalTime startTime;
-	private long duration;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	private LocalTime endTime;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate endDate;
 	
+
+	public LocalTime getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(LocalTime endTime) {
+		this.endTime = endTime;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
 
 	@OneToMany(targetEntity = Bidder.class, cascade = CascadeType.ALL)
 	@JoinColumn(name = "fkAuctionId", referencedColumnName = "auctionId")
@@ -97,14 +116,6 @@ public class Auction {
 
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
-	}
-
-	public long getDuration() {
-		return duration;
-	}
-
-	public void setDuration(long duration) {
-		this.duration = duration;
 	}
 
 	public List<Bidder> getBidder() {

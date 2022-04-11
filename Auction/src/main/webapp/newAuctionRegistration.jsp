@@ -88,10 +88,18 @@
 								</div>
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-right">
-										Duration</label>
+										End Date:</label>
 									<div class="col-md-6">
-										<input required="required" type="number" id="duration"
-											name="duration">
+										<input required="required" type="date" id="endDate"
+											class="form-control" name="endDate">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-4 col-form-label text-md-right">
+										End Time:</label>
+									<div class="col-md-6">
+										<input required="required" type="time" id="endime"
+											name="endTime">
 									</div>
 								</div>
 

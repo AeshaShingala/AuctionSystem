@@ -1,5 +1,6 @@
 package com.simformsolutions.auction.controller;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +42,10 @@ public class LotController {
 			@RequestParam("basePrice") List<Integer> basePrices,
 			@RequestParam("imagee") List<MultipartFile> images,
 			@RequestParam("auctionId") int catalogId,
-			@RequestParam("selectedCategory") int categoryId) {
-
+			@RequestParam("selectedCategory") int categoryId,
+			@RequestParam("startTime") List<String> startStringTimes,
+			@RequestParam("endTime") List<String> endStringTimes) {
+		
 		List<Lot> listOfLots = new ArrayList<Lot>();
 		for(int i=0;i<titles.size();i++) {
 			
@@ -51,8 +54,11 @@ public class LotController {
 			int quantity = quantities.get(i);
 			int basePrice = basePrices.get(i);
 			MultipartFile file = images.get(i);
+			LocalTime startTime = LocalTime.parse(startStringTimes.get((i))); 
+			LocalTime endTime = LocalTime.parse(endStringTimes.get(i)); 
+
 			String fileName = AuctionUtility.saveImage(uploadLotDirectory,file);
-			listOfLots.add(new Lot( title,description,quantity,basePrice,fileName));
+			listOfLots.add(new Lot( title,description,quantity,basePrice,fileName,startTime,endTime));
 			Category category = categoryRepository.findById(categoryId).orElse(null);
 			category.setLots(listOfLots);
 			Auction auction = auctionRepository.findById(catalogId).orElse(null);

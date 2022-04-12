@@ -2,6 +2,7 @@ package com.simformsolutions.auction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,9 @@ public class RegistrationController {
 
 	@Autowired
 	private AuctionHouseRepository auctionHouseRepository;
+	
+	@Autowired
+    PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private BidderRepository bidderRepository;
@@ -100,9 +104,11 @@ public class RegistrationController {
 
 		} else {
 			AuctionHouse auc = auctionHouseRepository.findById(auctionHouseId).orElse(null);
+			String encodedPass = passwordEncoder.encode((auctioneer.getPassword()));
+			auctioneer.setPassword(encodedPass);
 			auc.setAuctioneer(auctioneer);
 			auctionHouseRepository.save(auc);
-			return new ModelAndView("auctioneers").addObject("listOfAuctioneers", auctioneerRepository.findAll());
+			return new ModelAndView("auctioneerLogin").addObject("listOfAuctioneers", auctioneerRepository.findAll());
 		}
 	}
 
@@ -137,13 +143,15 @@ public class RegistrationController {
 
 	// Bidder Data Handler
 	@RequestMapping(value = "/bidder/data", method = RequestMethod.POST)
-	@ResponseBody
 	public ModelAndView bidderData(@ModelAttribute Bidder bidder) {
+		System.out.println(bidder.getEmail());
 		if (bidderRepository.existsByemail(bidder.getEmail()) == true) {
 			return new ModelAndView("bidderRegistration").addObject("exists", true);
 		} else {
+			String encodedPass = passwordEncoder.encode((bidder.getPassword()));
+			bidder.setPassword(encodedPass);
 			bidderRepository.save(bidder);
-			return new ModelAndView("auctions");
+			return new ModelAndView("bidderLogin");
 		}
 	}
 }

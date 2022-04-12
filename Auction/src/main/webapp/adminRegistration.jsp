@@ -29,7 +29,8 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="static/css/register.css">
+<link rel="stylesheet" type="text/css" href="../resources/static/css/register.css">
+<link rel="stylesheet" href="/css/register.css">
 
 <title>Admin Registration</title>
 </head>
@@ -40,8 +41,8 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link" href="localhost:8080/admin/login">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="localhost:8080/admin/register">Sign Up</a></li>
 				</ul>
 			</div>
 		</div>

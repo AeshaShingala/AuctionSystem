@@ -8,4 +8,6 @@ public interface AuctioneerRepository extends JpaRepository<Auctioneer, Integer>
 
 	boolean existsByemail(String email);
 
+	Auctioneer findByemail(String email);
+
 }

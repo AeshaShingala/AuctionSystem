@@ -17,6 +17,7 @@ import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.AuctionHouse;
 import com.simformsolutions.auction.model.Auctioneer;
 import com.simformsolutions.auction.model.Bidder;
+import com.simformsolutions.auction.repository.AdminRepository;
 import com.simformsolutions.auction.repository.AuctionHouseRepository;
 import com.simformsolutions.auction.repository.AuctionRepository;
 import com.simformsolutions.auction.repository.AuctioneerRepository;
@@ -38,6 +39,9 @@ public class RegistrationController {
 
 	@Autowired
 	private AuctioneerRepository auctioneerRepository;
+	
+	@Autowired
+	private AdminRepository adminRepository;
 
 	@Autowired
 	private AuctionRepository auctionRepository;
@@ -97,8 +101,10 @@ public class RegistrationController {
 	@ResponseBody
 	public ModelAndView auctioneerData(@ModelAttribute Auctioneer auctioneer,
 			@RequestParam(name = "selectedAuctionHouse") int auctionHouseId) {
-
-		if (auctioneerRepository.existsByemail(auctioneer.getEmail()) == true) {
+		String email = auctioneer.getEmail();
+		if (auctioneerRepository.existsByemail(email) == true 
+				|| adminRepository.existsByemail(email) == true || bidderRepository.existsByemail(email) == true) {
+			
 			return new ModelAndView("auctioneerRegistration").addObject("exists", true).addObject("listAuctionHouses",
 					auctionHouseRepository.findAll());
 
@@ -144,8 +150,9 @@ public class RegistrationController {
 	// Bidder Data Handler
 	@RequestMapping(value = "/bidder/data", method = RequestMethod.POST)
 	public ModelAndView bidderData(@ModelAttribute Bidder bidder) {
-		System.out.println(bidder.getEmail());
-		if (bidderRepository.existsByemail(bidder.getEmail()) == true) {
+		String email = bidder.getEmail();
+		if (auctioneerRepository.existsByemail(email) == true 
+				|| adminRepository.existsByemail(email) == true || bidderRepository.existsByemail(email) == true) {
 			return new ModelAndView("bidderRegistration").addObject("exists", true);
 		} else {
 			String encodedPass = passwordEncoder.encode((bidder.getPassword()));

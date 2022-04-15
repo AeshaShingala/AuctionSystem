@@ -5,9 +5,10 @@ import java.io.File;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 import com.simformsolutions.auction.controller.RegistrationController;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = { "com.simformsolutions","com.simformsolutions.auction.utility"})
 public class AuctionApplication {
 
 	public static void main(String[] args) {

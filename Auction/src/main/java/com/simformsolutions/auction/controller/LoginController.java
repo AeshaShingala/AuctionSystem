@@ -1,5 +1,8 @@
 package com.simformsolutions.auction.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,13 +12,22 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simformsolutions.auction.utility.AuctionUtility;
 import com.simformsolutions.auction.utility.JwtUtil;
+import com.simformsolutions.auction.model.Admin;
+import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.AuthRequest;
+import com.simformsolutions.auction.repository.AdminRepository;
+import com.simformsolutions.auction.repository.AuctionRepository;
+import com.simformsolutions.auction.repository.AuctioneerRepository;
+import com.simformsolutions.auction.repository.BidderRepository;
+import com.simformsolutions.auction.service.CustomUserDetailsService;
 
 @Controller
 public class LoginController {
@@ -25,6 +37,18 @@ public class LoginController {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	BidderRepository bidderRepository;
+
+	@Autowired
+	AuctioneerRepository auctioneerRepository;
+
+	@Autowired
+	AdminRepository adminRepository;
+	
+	@Autowired
+	private CustomUserDetailsService customUserDetailsService;
 
 	@RequestMapping("bidder/login")
 	public String bidderLogin() {
@@ -42,42 +66,49 @@ public class LoginController {
 	}
 
 	@RequestMapping("bidder/login/data")
-	public ModelAndView bidderLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) {
+	public void bidderLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		AuctionUtility au = new AuctionUtility();
-		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil);
+		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
 		if(cookie == null){
-			return new ModelAndView("bidderLogin").addObject("invalid", true);			
+			response.sendRedirect("/bidder/login/invalid");			
 		}	else {
 			response.addCookie(cookie);
 			System.out.println(cookie.getValue());
-			return new ModelAndView("auctions");
+			response.sendRedirect("/auctions");
 		}
 	}
 
 	@RequestMapping("auctioneer/login/data")
-	public ModelAndView auctioneerLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) {
+	public void auctioneerLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		AuctionUtility au = new AuctionUtility();
-		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil);
+		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
 		if(cookie == null){
-			return new ModelAndView("auctioneerLogin").addObject("invalid", true);			
+			response.sendRedirect("/auctioneer/login/invalid"); 			
 		}	else {
 			response.addCookie(cookie);
 			System.out.println(cookie.getValue());
-			return new ModelAndView("auctions");
+			response.sendRedirect("/auctions");
 		}
 	}
 
-	@RequestMapping("admin/login/data")
-	public ModelAndView adminLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value="admin/login/data",method = RequestMethod.POST )
+	public void adminLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		AuctionUtility au = new AuctionUtility();
-		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil);
+		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
 		if(cookie == null){
-			return new ModelAndView("adminLogin").addObject("invalid", true);			
+			
+			response.sendRedirect("/admin/login/invalid"); 
+			
 		}	else {
-			response.addCookie(cookie);
 			System.out.println(cookie.getValue());
-			return new ModelAndView("auctions");
+			response.addCookie(cookie);
+			response.sendRedirect("/admin/register");
 		}
 	}
-
+	
+	@RequestMapping(value = "{user}/login/invalid")
+	public ModelAndView invalidLogin(@PathVariable("user") String user){
+		String view = user+"Login";
+		return new ModelAndView(view).addObject("invalid", true);
+	}
 }

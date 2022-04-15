@@ -29,7 +29,8 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" href="static/css/register.css">
+<link rel="stylesheet" type="text/css" href="../resources/static/css/register.css">
+<link rel="stylesheet" href="/css/register.css">
 
 <title>User Registration</title>
 </head>

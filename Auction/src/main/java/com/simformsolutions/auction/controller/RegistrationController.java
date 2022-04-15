@@ -2,6 +2,7 @@ package com.simformsolutions.auction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.AuctionHouse;
 import com.simformsolutions.auction.model.Auctioneer;
 import com.simformsolutions.auction.model.Bidder;
+import com.simformsolutions.auction.repository.AdminRepository;
 import com.simformsolutions.auction.repository.AuctionHouseRepository;
 import com.simformsolutions.auction.repository.AuctionRepository;
 import com.simformsolutions.auction.repository.AuctioneerRepository;
@@ -28,12 +30,18 @@ public class RegistrationController {
 
 	@Autowired
 	private AuctionHouseRepository auctionHouseRepository;
+	
+	@Autowired
+    PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private BidderRepository bidderRepository;
 
 	@Autowired
 	private AuctioneerRepository auctioneerRepository;
+	
+	@Autowired
+	private AdminRepository adminRepository;
 
 	@Autowired
 	private AuctionRepository auctionRepository;
@@ -93,16 +101,20 @@ public class RegistrationController {
 	@ResponseBody
 	public ModelAndView auctioneerData(@ModelAttribute Auctioneer auctioneer,
 			@RequestParam(name = "selectedAuctionHouse") int auctionHouseId) {
-
-		if (auctioneerRepository.existsByemail(auctioneer.getEmail()) == true) {
+		String email = auctioneer.getEmail();
+		if (auctioneerRepository.existsByemail(email) == true 
+				|| adminRepository.existsByemail(email) == true || bidderRepository.existsByemail(email) == true) {
+			
 			return new ModelAndView("auctioneerRegistration").addObject("exists", true).addObject("listAuctionHouses",
 					auctionHouseRepository.findAll());
 
 		} else {
 			AuctionHouse auc = auctionHouseRepository.findById(auctionHouseId).orElse(null);
+			String encodedPass = passwordEncoder.encode((auctioneer.getPassword()));
+			auctioneer.setPassword(encodedPass);
 			auc.setAuctioneer(auctioneer);
 			auctionHouseRepository.save(auc);
-			return new ModelAndView("auctioneers").addObject("listOfAuctioneers", auctioneerRepository.findAll());
+			return new ModelAndView("auctioneerLogin").addObject("listOfAuctioneers", auctioneerRepository.findAll());
 		}
 	}
 
@@ -137,13 +149,16 @@ public class RegistrationController {
 
 	// Bidder Data Handler
 	@RequestMapping(value = "/bidder/data", method = RequestMethod.POST)
-	@ResponseBody
 	public ModelAndView bidderData(@ModelAttribute Bidder bidder) {
-		if (bidderRepository.existsByemail(bidder.getEmail()) == true) {
+		String email = bidder.getEmail();
+		if (auctioneerRepository.existsByemail(email) == true 
+				|| adminRepository.existsByemail(email) == true || bidderRepository.existsByemail(email) == true) {
 			return new ModelAndView("bidderRegistration").addObject("exists", true);
 		} else {
+			String encodedPass = passwordEncoder.encode((bidder.getPassword()));
+			bidder.setPassword(encodedPass);
 			bidderRepository.save(bidder);
-			return new ModelAndView("auctions");
+			return new ModelAndView("bidderLogin");
 		}
 	}
 }

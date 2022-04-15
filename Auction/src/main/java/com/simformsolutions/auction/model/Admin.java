@@ -14,8 +14,11 @@ public class Admin {
 	private String email;
 	private String password;
 	private long contact;
+	private boolean active=true;
 	
-	
+	public Admin() {
+		super();
+	}
 	public long getContact() {
 		return contact;
 	}
@@ -46,13 +49,18 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Admin(String name, String email, String password) {
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	public Admin(String name, String email, String password,boolean active) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.active = active;
 	}
-	
-	
-	
+
 }

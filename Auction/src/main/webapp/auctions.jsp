@@ -17,15 +17,15 @@
 <body>
 	<div class="row">
 		<c:forEach items="${listOfAuctions}" var="auction">
-			<div class="col-sm-4">
-				<div class="card" style="width: 18rem;">
+			<div class="col-sm-4" style="width: 300px; height: 350px">
+				<div class="card" >
 					<img class="card-img-top"
 						src="/auctionImage/${auction.image}"
-						alt="Card image cap">
+						alt="Card image cap"  style="width: 275px; height: 200px">
 					<div class="card-body">
 						<h5 class="card-title">${auction.title}</h5>
 						<p class="card-text">${auction.description}</p>
-						<a href="#" class="btn btn-primary">Catalog</a>
+						<a href="/showCatalog/${auction.auctionId}" class="btn btn-primary">Catalog</a>
 					</div>
 				</div>
 			</div>

@@ -18,12 +18,20 @@ public class Lot {
 	private String description;
 	private int quantity;
 	private int basePrice;
+	private int sellingPrice;
 	private String image;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalTime startTime;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	private LocalTime endTime;
 
+	public int getSellingPrice() {
+		return sellingPrice;
+	}
+	
+	public void setSellingPrice(int sellingPrice) {
+		this.sellingPrice = sellingPrice;
+	}
 	public LocalTime getStartTime() {
 		return startTime;
 	}
@@ -52,17 +60,20 @@ public class Lot {
 		this.image = image;
 	}
 
-	public Lot(String title, String description, int quantity, int basePrice, String image, LocalTime startTime,
+	public Lot(String title, String description, int quantity, int basePrice, /*int sellingPrice,*/ String image, LocalTime startTime,
 			LocalTime endTime) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.quantity = quantity;
 		this.basePrice = basePrice;
+//		this.sellingPrice = sellingPrice;
 		this.image = image;
 		this.startTime = startTime;
 		this.endTime = endTime;
 	}
+	
+	
 
 	public int getLotId() {
 		return lotId;

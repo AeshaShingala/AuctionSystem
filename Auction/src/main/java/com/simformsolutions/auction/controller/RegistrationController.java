@@ -59,8 +59,8 @@ public class RegistrationController {
 
 	// Home Page
 	@RequestMapping("/")
-	public String home() {
-		return "redirect:/auctions";
+	public ModelAndView home() {
+		return new ModelAndView("home").addObject("listOfAuctions", auctionRepository.findAll());
 	}
 
 	// Register Auction House

@@ -64,10 +64,10 @@ public class Auction {
 		return catalog;
 	}
 
-	//for single lot
-	public void setCatalog(Lot catalog) {
-		this.catalog.add(catalog);
-	}
+//	//for single lot
+//	public void setCatalog(Lot catalog) {
+//		this.catalog.add(catalog);
+//	}
 	
 	//for list of lots
 	public void setCatalog(List<Lot> catalog) {

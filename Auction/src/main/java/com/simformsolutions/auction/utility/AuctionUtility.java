@@ -48,17 +48,14 @@ public class AuctionUtility {
 			UserDetails userDetails = service.loadUserByUsername(email);
 			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 					email,password,userDetails.getAuthorities());
-			System.out.println(userDetails.getAuthorities());
 			authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-			usernamePasswordAuthenticationToken
-			.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 		} catch (Exception ex) {
-			System.out.println(ex);
+//			System.out.println(ex);
 			return cookie;
 		}
 		cookie = new Cookie("token", jwtUtil.generateToken(email));
-		cookie.setMaxAge(60);
+		cookie.setPath("/");
+		cookie.setMaxAge(60*60*10);
 		return cookie;
 	}
 }

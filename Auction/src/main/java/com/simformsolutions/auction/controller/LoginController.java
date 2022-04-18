@@ -48,6 +48,9 @@ public class LoginController {
 	AdminRepository adminRepository;
 	
 	@Autowired
+	AuctionRepository auctionRepository;
+	
+	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
 	@RequestMapping("bidder/login")
@@ -83,7 +86,7 @@ public class LoginController {
 		AuctionUtility au = new AuctionUtility();
 		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
 		if(cookie == null){
-			response.sendRedirect("/auctioneer/login/invalid"); 			
+			response.sendRedirect("/auctioneer/login/invalid");
 		}	else {
 			response.addCookie(cookie);
 			System.out.println(cookie.getValue());
@@ -96,9 +99,7 @@ public class LoginController {
 		AuctionUtility au = new AuctionUtility();
 		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
 		if(cookie == null){
-			
-			response.sendRedirect("/admin/login/invalid"); 
-			
+			response.sendRedirect("/admin/login/invalid"); 	
 		}	else {
 			System.out.println(cookie.getValue());
 			response.addCookie(cookie);

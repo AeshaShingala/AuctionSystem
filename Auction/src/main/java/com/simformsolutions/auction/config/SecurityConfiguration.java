@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeHttpRequests()
 		.antMatchers("/admins/**").hasAuthority("SA_ADMIN")
 		.antMatchers("/admin/register","/auctioneers").hasAnyAuthority("ADMIN","SA_ADMIN")
-		.antMatchers("/auctioneer/register", "/auction/register", "/lots/**").hasAnyAuthority("AUCTIONEER","ADMIN","SA_ADMIN")
+		.antMatchers("/auctioneer/register","/auctionhouse/register", "/auction/register", "/lots/**").hasAnyAuthority("AUCTIONEER","ADMIN","SA_ADMIN")
 				.antMatchers("/","/admin/login/**","/bidder/login/**","/auctioneer/login/**", "/auctions", "/authenticate", "/css/**", "/js/**").permitAll();
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}

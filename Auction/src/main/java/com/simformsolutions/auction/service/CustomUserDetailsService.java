@@ -1,7 +1,5 @@
 package com.simformsolutions.auction.service;
 
-import java.util.ArrayList;
-
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.User;
 
 import com.simformsolutions.auction.model.Admin;
 import com.simformsolutions.auction.model.Auctioneer;
@@ -37,32 +36,32 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		//Getting Api Path and returning appropriate object
 		String path = ServletUriComponentsBuilder.fromCurrentRequest().toUriString();
-		String user = path.substring(22, path.indexOf("/login"));
-		System.out.println(user);
+
+		String user = path.substring(22, 22 + path.indexOf("/"));
 		
 		List<SimpleGrantedAuthority> array = null;
 		
-		if (user.equals("admin")) {
+		if (user.equals("admin") || adminRepository.existsByemail(email)) {
 			Admin admin = adminRepository.findByemail(email);
 			if(email.contains("proxibid")) {
 				array = Arrays.asList(new SimpleGrantedAuthority("SA_ADMIN"));
-				return new org.springframework.security.core.userdetails.User(admin.getEmail(), admin.getPassword(),
+				return new User(admin.getEmail(), admin.getPassword(),
 						true,true,true,true,array);
 			}
 			array = Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
-			return new org.springframework.security.core.userdetails.User(admin.getEmail(), admin.getPassword(),
+			return new User(admin.getEmail(), admin.getPassword(),
 					admin.isActive(),true,true,true,array);
 			
-		} else if (user.equals("auctioneer")) {
+		} else if (user.equals("auctioneer") || auctioneerRepository.existsByemail(email)) {
 			Auctioneer auctioneer = auctioneerRepository.findByemail(email);
 			array = Arrays.asList(new SimpleGrantedAuthority("AUCTIONEER"));
-			return new org.springframework.security.core.userdetails.User(auctioneer.getEmail(), auctioneer.getPassword(),
+			return new User(auctioneer.getEmail(), auctioneer.getPassword(),
 					array);
 			
 		} else {
 			Bidder bidder = bidderRepository.findByemail(email);
 			array = Arrays.asList(new SimpleGrantedAuthority("BIDDER"));
-			return new org.springframework.security.core.userdetails.User(bidder.getEmail(), bidder.getPassword(),
+			return new User(bidder.getEmail(), bidder.getPassword(),
 					array);
 			
 		}

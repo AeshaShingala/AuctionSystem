@@ -25,12 +25,12 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
 		<div class="container">
-			<a class="navbar-brand" href="#">Registration</a>
+			<a class="navbar-brand" href="#">Create Bidder</a>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link" href="/bidder/login">Login</a></li>
+					<li class="nav-item active"><a class="nav-link" href="/bidder/register">Sign Up</a></li>
 				</ul>
 
 			</div>
@@ -42,7 +42,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-8">
 					<div class="card">
-						<div class="card-header">Register</div>
+						<div class="card-header">Enter Your Details</div>
 						<div class="card-body">
 							<form name="my-form" action="http://localhost:8080/bidder/data"
 								method="post">

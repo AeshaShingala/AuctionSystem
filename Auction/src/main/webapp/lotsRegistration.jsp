@@ -25,13 +25,25 @@
 				integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 				crossorigin="anonymous">
 			<!-- <link rel="stylesheet" href="/static/css/style.css"> -->
+			<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			<script>
+				function successAlert(){
+					Swal.fire(
+						'Auction Created Successfully',
+						'Now Add Lots Information',
+						'success'
+						)
+						
+					}
+			</script>
 
-
-			<title>Auction House Registration</title>
+			<title>Lots Registration</title>
 		</head>
 
 		<body>
-
+			<script>
+				successAlert();
+			</script>
 			<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
 				<div class="container">
 					<a class="navbar-brand">Create Catalog</a>

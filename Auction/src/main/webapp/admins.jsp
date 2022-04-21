@@ -13,8 +13,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	
-    <title>Show Admins</title>
-	<link rel="stylesheet" type="text/css" href="/style.css" />
+    <title>Admin Dashboard</title>
   </head>
   <body>
   	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark py-3">
@@ -29,12 +28,21 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link "
-						aria-current="page" href="/admin">Dashboard</a></li>
-					<li class="nav-item float-right"><a class="nav-link" href="/admin/register">Add Admin</a></li>
+						aria-current="page" href="/auctioneers">Manage Auctioneers</a></li>
+					<li class="nav-item float-right"><a class="nav-link" href="/admin/register">Create Admin</a></li>
+					<!-- <li class="nav-item float-right"><a class="nav-link"
+						href="#">Add Admins</a></li> -->
 					<li class="nav-item float-right"><a class="nav-link"
-						href="#">Add Admins</a></li>
+						href="/auctioneer/register">Create Auctioneer</a></li>
+						<li class="nav-item float-right"><a class="nav-link"
+							href="/auctioneers">Auctioneer Dashboard</a></li>
+					<li class="nav-item float-right"><a class="nav-link" href="/auctionhouse/register">Create
+							Auction House</a></li>
 				</ul>
 			</div>
+			<form action="/logout" method="post">
+				<button type="submit" class="btn btn-danger">Log Out</button>
+			</form>
 		</div>
 	</nav>
 	<table class="table table-dark table-striped" id="table">

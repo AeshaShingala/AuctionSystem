@@ -36,8 +36,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		//Getting Api Path and returning appropriate object
 		String path = ServletUriComponentsBuilder.fromCurrentRequest().toUriString();
-
-		String user = path.substring(22, 22 + path.indexOf("/"));
+		String user="";
+		if(path.length() > 22) {
+			user = path.substring(22, 22 + path.indexOf("/"));			
+		}
 		
 		List<SimpleGrantedAuthority> array = null;
 		
@@ -58,12 +60,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 			return new User(auctioneer.getEmail(), auctioneer.getPassword(),
 					array);
 			
-		} else {
+		} else if(user.equals("bidder") && bidderRepository.existsByemail(email)) {
 			Bidder bidder = bidderRepository.findByemail(email);
 			array = Arrays.asList(new SimpleGrantedAuthority("BIDDER"));
 			return new User(bidder.getEmail(), bidder.getPassword(),
 					array);
 			
+		}
+		else {
+			throw new UsernameNotFoundException(email+" Not Found: ");
 		}
 		
 	}

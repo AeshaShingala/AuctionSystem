@@ -1,8 +1,11 @@
 package com.simformsolutions.auction.controller;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.Category;
@@ -36,7 +38,7 @@ public class LotController {
 	
 	// Lot data handler
 	@RequestMapping(value = "/lots/data", method = RequestMethod.POST)
-	public ModelAndView auctioneerData(@RequestParam("title") List<String> titles,
+	public void auctioneerData(@RequestParam("title") List<String> titles,
 			@RequestParam("description") List<String>	descriptions,
 			@RequestParam("quantity") List<Integer> quantities,
 			@RequestParam("basePrice") List<Integer> basePrices,
@@ -44,7 +46,7 @@ public class LotController {
 			@RequestParam("auctionId") int catalogId,
 			@RequestParam("selectedCategory") int categoryId,
 			@RequestParam("startTime") List<String> startStringTimes,
-			@RequestParam("endTime") List<String> endStringTimes) {
+			@RequestParam("endTime") List<String> endStringTimes, HttpServletResponse response) throws IOException {
 		
 		List<Lot> listOfLots = new ArrayList<Lot>();
 		for(int i=0;i<titles.size();i++) {
@@ -65,7 +67,9 @@ public class LotController {
 			auction.setCatalog(listOfLots);
 		}
 		lotRepository.saveAll(listOfLots);
-		return new ModelAndView("catalog").addObject("listOfLots",lotRepository.findAll());
+//		return new ModelAndView("showCatalog").addObject("listOfLots",lotRepository.findAll());
+		String path = "/showCatalog/"+catalogId;
+		response.sendRedirect(path);
 	}
 	
 //	//Register multiple lots
@@ -78,7 +82,7 @@ public class LotController {
 //	// Register single lot
 //	@RequestMapping("/lot/register")
 //	public String lotRegister() {
-//		return "newLotRegistration";
+//		return "lotRegistration";
 //	}
 
 }

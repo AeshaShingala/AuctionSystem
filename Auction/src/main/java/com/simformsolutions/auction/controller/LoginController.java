@@ -1,7 +1,7 @@
 package com.simformsolutions.auction.controller;
 
 import java.io.IOException;
-import java.util.List;
+
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -9,19 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simformsolutions.auction.utility.AuctionUtility;
 import com.simformsolutions.auction.utility.JwtUtil;
-import com.simformsolutions.auction.model.Admin;
-import com.simformsolutions.auction.model.Auction;
 import com.simformsolutions.auction.model.AuthRequest;
 import com.simformsolutions.auction.repository.AdminRepository;
 import com.simformsolutions.auction.repository.AuctionRepository;
@@ -90,7 +88,7 @@ public class LoginController {
 		}	else {
 			response.addCookie(cookie);
 			System.out.println(cookie.getValue());
-			response.sendRedirect("/auctions");
+			response.sendRedirect("/auction/register");
 		}
 	}
 
@@ -103,7 +101,10 @@ public class LoginController {
 		}	else {
 			System.out.println(cookie.getValue());
 			response.addCookie(cookie);
-			response.sendRedirect("/admin/register");
+			if(authRequest.getEmail().contains("proxibid"))
+				response.sendRedirect("/admins");
+			else
+			response.sendRedirect("/admin");
 		}
 	}
 	
@@ -111,5 +112,10 @@ public class LoginController {
 	public ModelAndView invalidLogin(@PathVariable("user") String user){
 		String view = user+"Login";
 		return new ModelAndView(view).addObject("invalid", true);
+	}
+	
+	@RequestMapping("/access")
+	public ModelAndView accessdenied() {
+		return new ModelAndView("access");
 	}
 }

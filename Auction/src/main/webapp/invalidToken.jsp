@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Invalid Token</title>
 </head>
 <body>
-    <p>Admin Dashboard Here</p>
-    <a href="http://localhost:8080/admins">All Admins</a>
+    <h1>Invalid Token</h1>
 </body>
 </html>

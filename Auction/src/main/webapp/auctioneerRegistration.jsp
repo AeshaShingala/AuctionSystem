@@ -6,11 +6,6 @@
 <html lang="en">
 
 <head>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="utf-8">
@@ -29,7 +24,6 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="../resources/static/css/register.css">
 <link rel="stylesheet" href="/css/register.css">
 
 <title>User Registration</title>
@@ -37,12 +31,12 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
 		<div class="container">
-			<a class="navbar-brand" href="#">Registration</a>
+			<a class="navbar-brand" href="#">Create Auctioneer</a>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Sign Up</a></li>
+					<li class="nav-item"><a class="nav-link" href="/auctioneer/login">Login</a></li>
+					<li class="nav-item active"><a class="nav-link" href="/auctioneer/register">Sign Up</a></li>
 				</ul>
 
 			</div>
@@ -54,7 +48,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-8">
 					<div class="card">
-						<div class="card-header">Register</div>
+						<div class="card-header">Enter Auctioneer Details</div>
 						<div class="card-body">
 							<form name="my-form"
 								action="http://localhost:8080/auctioneer/data" method="post">

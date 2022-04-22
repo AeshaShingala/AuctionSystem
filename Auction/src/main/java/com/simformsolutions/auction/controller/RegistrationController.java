@@ -72,7 +72,7 @@ public class RegistrationController {
 	public static String uploadAuctionDirectory = System.getProperty("user.dir") + "/src/main/webapp/auctionImage";
 
 	// Location For Storing lot Images
-	public static String uploadLotDirectory = System.getProperty("user.dir") + "/src/main/webapp/lots";
+	public static String uploadLotDirectory = System.getProperty("user.dir") + "/src/main/webapp/lotsImage";
 
 	@Bean(name = "multipartResolver")
 	public CommonsMultipartResolver multipartResolver() {
@@ -174,8 +174,8 @@ public class RegistrationController {
 	@RequestMapping(value = "/bidder/data", method = RequestMethod.POST)
 	public ModelAndView bidderData(@ModelAttribute Bidder bidder) {
 		String email = bidder.getEmail();
-		if (auctioneerRepository.existsByemail(email) == true || adminRepository.existsByemail(email) == true
-				|| bidderRepository.existsByemail(email) == true) {
+		if (auctioneerRepository.existsByemail(email) || adminRepository.existsByemail(email)
+				|| bidderRepository.existsByemail(email)) {
 			return new ModelAndView("bidderRegistration").addObject("exists", true);
 		} else {
 			String encodedPass = passwordEncoder.encode((bidder.getPassword()));

@@ -34,43 +34,76 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-		//Getting Api Path and returning appropriate object
+		// Getting Api Path and returning appropriate object
 		String path = ServletUriComponentsBuilder.fromCurrentRequest().toUriString();
 		String user="";
-		if(path.length() > 22) {
-			user = path.substring(22, 22 + path.indexOf("/"));			
+		System.out.println(path);
+		System.out.println(user);
+		String[] parts = path.split("/");
+		if (parts.length > 3 ) {
+			user = parts[3];
 		}
+		System.out.println(user);
 		
+		boolean isAuctioneer = auctioneerRepository.existsByemail(email);
+		boolean isBidder = bidderRepository.existsByemail(email);
+		boolean isAdmin = adminRepository.existsByemail(email);
+		
+		if((isAdmin || isAuctioneer || isBidder) == true) {
+			
 		List<SimpleGrantedAuthority> array = null;
-		
-		if (user.equals("admin") || adminRepository.existsByemail(email)) {
+
+		if (user.equals("admin") && isAdmin) {
 			Admin admin = adminRepository.findByemail(email);
-			if(email.contains("proxibid")) {
+			if (email.contains("proxibid")) {
 				array = Arrays.asList(new SimpleGrantedAuthority("SA_ADMIN"));
-				return new User(admin.getEmail(), admin.getPassword(),
-						true,true,true,true,array);
+				return new User(admin.getEmail(), admin.getPassword(), true, true, true, true, array);
 			}
 			array = Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
-			return new User(admin.getEmail(), admin.getPassword(),
-					admin.isActive(),true,true,true,array);
-			
-		} else if (user.equals("auctioneer") || auctioneerRepository.existsByemail(email)) {
-			Auctioneer auctioneer = auctioneerRepository.findByemail(email);
-			array = Arrays.asList(new SimpleGrantedAuthority("AUCTIONEER"));
-			return new User(auctioneer.getEmail(), auctioneer.getPassword(),
-					array);
-			
-		} else if(user.equals("bidder") && bidderRepository.existsByemail(email)) {
-			Bidder bidder = bidderRepository.findByemail(email);
-			array = Arrays.asList(new SimpleGrantedAuthority("BIDDER"));
-			return new User(bidder.getEmail(), bidder.getPassword(),
-					array);
-			
+			return new User(admin.getEmail(), admin.getPassword(), admin.isActive(), true, true, true, array);
 		}
-		else {
-			throw new UsernameNotFoundException(email+" Not Found: ");
+		if (user.equals("auctioneer") && isAuctioneer) {
+			Auctioneer auctioneer = auctioneerRepository.findByemail(email);
+			if (email.contains("proxibid")) {
+				array = Arrays.asList(new SimpleGrantedAuthority("AUCTIONEER"));
+				return new User(auctioneer.getEmail(), auctioneer.getPassword(), true, true, true, true, array);
+			}
+		}	
+		if (user.equals("bidder") && isBidder) {
+			Bidder bidder = bidderRepository.findByemail(email);
+			if (email.contains("proxibid")) {
+				array = Arrays.asList(new SimpleGrantedAuthority("BIDDER"));
+				return new User(bidder.getEmail(), bidder.getPassword(), true, true, true, true, array);
+			}
 		}
 		
+		if (!user.equals("auctioneer") && !user.equals("bidder") && adminRepository.existsByemail(email)) {
+			Admin admin = adminRepository.findByemail(email);
+			if (email.contains("proxibid")) {
+				array = Arrays.asList(new SimpleGrantedAuthority("SA_ADMIN"));
+				return new User(admin.getEmail(), admin.getPassword(), true, true, true, true, array);
+			}
+			array = Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+			return new User(admin.getEmail(), admin.getPassword(), admin.isActive(), true, true, true, array);
+
+		} else if (!user.equals("admin") && !user.equals("bidder") && auctioneerRepository.existsByemail(email)) {
+			Auctioneer auctioneer = auctioneerRepository.findByemail(email);
+			array = Arrays.asList(new SimpleGrantedAuthority("AUCTIONEER"));
+			return new User(auctioneer.getEmail(), auctioneer.getPassword(), array);
+
+		} else if (!user.equals("admin") && !user.equals("auctioneer") && bidderRepository.existsByemail(email)) {
+			Bidder bidder = bidderRepository.findByemail(email);
+			array = Arrays.asList(new SimpleGrantedAuthority("BIDDER"));
+			return new User(bidder.getEmail(), bidder.getPassword(), array);
+
+		}
+		else {
+			throw new UsernameNotFoundException(email + " Not Found: ");
+		}
+		}
+		
+		throw new UsernameNotFoundException(email + " Not Found: ");
+
 	}
 
 }

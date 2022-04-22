@@ -19,7 +19,7 @@
 		<c:forEach items="${listOfLots}" var="lot">
 			<div class="col-sm-4" style="width: 300px; height: 350px">
 				<div class="card">
-					<img class="card-img-top" src="/lots/${lot.image}"
+					<img class="card-img-top" src="/lotsImage/${lot.image}"
 						alt="Card image cap" style="width: 275px; height: 200px">
 					<div class="card-body">
 						<h5 class="card-title">${lot.title}</h5>

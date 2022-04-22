@@ -66,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/admins/**").hasAuthority("SA_ADMIN")
 		.antMatchers("/admin/register","/auctioneers").hasAnyAuthority("ADMIN","SA_ADMIN")
 		.antMatchers("/auctioneer/register","/auctionhouse/register", "/auction/register", "/lots/**").hasAnyAuthority("AUCTIONEER","ADMIN","SA_ADMIN")
-				.antMatchers("/","/admin/login/**","/bidder/login/**","/auctioneer/login/**", "/auctions", "/authenticate","/access", "/css/**", "/js/**").permitAll()
+				.antMatchers("/","/auctionHouseImage/**","/auctionImage/**","/lotsImage/**","/admin/login/**","/bidder/login/**","/auctioneer/login/**", "/auctions", "/authenticate","/access", "/css/**", "/js/**").permitAll()
 				.and().exceptionHandling().accessDeniedPage("/access")
 				.and().exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 		

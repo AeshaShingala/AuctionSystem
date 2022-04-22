@@ -48,13 +48,6 @@ public class DisplayController {
 		return mv;
 	}
 
-	// Displays All Auctioneers
-	@RequestMapping("/auctioneers")
-	public ModelAndView displayAuctioneers() {
-		List<Auctioneer> listOfAuctioneers = auctioneerRepository.findAll();
-		return new ModelAndView("auctioneers").addObject("listOfAuctioneers", listOfAuctioneers);
-	}
-
 	// Displays All Auction
 	@RequestMapping("/auctions")
 	public ModelAndView displayAuctions() {

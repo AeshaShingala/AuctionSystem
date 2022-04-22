@@ -50,7 +50,7 @@ public class AuctionUtility {
 					email,password,userDetails.getAuthorities());
 			authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 		} catch (Exception ex) {
-			System.out.println(ex);
+//			System.out.println(ex);
 			return cookie;
 		}
 		cookie = new Cookie("token", jwtUtil.generateToken(email));

@@ -23,7 +23,7 @@
 							<li class="nav-item float-right"><a class="nav-link" href="/bidder/register">Create
 									Bidder Account</a></li>
 							<li class="nav-item float-right"><a class="nav-link"
-									href="/auctionhouse/register">Categories</a></li>
+									href="#">Categories</a></li>
 						</ul>
 						<div class="dropdown floatleft">
 							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"

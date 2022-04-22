@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.simformsolutions.auction.model.Admin;
+import com.simformsolutions.auction.model.Auctioneer;
 import com.simformsolutions.auction.repository.AdminRepository;
 import com.simformsolutions.auction.repository.AuctioneerRepository;
 import com.simformsolutions.auction.repository.BidderRepository;
@@ -94,5 +95,12 @@ public class AdminController {
 		adminRepository.delete(dbAdmin);
 		String redirectUrl = "/admins";
 		return "redirect:" + redirectUrl;	
+	}
+	
+	// Displays All Auctioneers
+	@RequestMapping("/auctioneers")
+	public ModelAndView displayAuctioneers() {
+		List<Auctioneer> listOfAuctioneers = auctioneerRepository.findAll();
+		return new ModelAndView("auctioneers").addObject("listOfAuctioneers", listOfAuctioneers);
 	}
 }

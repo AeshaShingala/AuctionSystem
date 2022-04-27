@@ -83,8 +83,8 @@ public class RegistrationController {
 
 	// Home Page
 	@RequestMapping("/")
-	public ModelAndView home() {
-		return new ModelAndView("home").addObject("listOfAuctions", auctionRepository.findAll());
+	public ModelAndView home(Principal principal) {
+		return new ModelAndView("home").addObject("listOfAuctions", auctionRepository.findAll()).addObject("isLoggedIn",principal != null);
 	}
 
 	// Register Auction House

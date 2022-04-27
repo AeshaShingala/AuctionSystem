@@ -1,52 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Bidding Page</title>
+<%@ page language="java" contentType="text/html" %>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<%@include file="/bootstrapTemplate.jsp" %>
 
-<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<script src="/webjars/jquery/jquery.min.js"></script>
-<script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<script src="/webjars/stomp-websocket/stomp.min.js"></script>
-<script src="/app.js"></script>
-</head>
+			<!DOCTYPE html>
+			<html>
 
-<body>
+			<head>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+				<title>Form Demo</title>
+			</head>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<form class="form-inline">
-					<div class="form-group">
-						<label for="connect">WebSocket connection: </label>
-						<button id="connect" class="btn btn-default" type="submit">Connect
+			<body>
+				<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark py-3">
+					<div class="container-fluid">
+						<a class="navbar-brand" href="#">Welcome ${user}</a>
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+							data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+							aria-expanded="ffalse" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
 						</button>
-						<button id="disconnect" class="btn btn-default" type="submit"
-							disabled="disabled">Disconnect</button>
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+								<li class="nav-item float-right"><a class="nav-link" href="/">Home</a></li>
+								<li class="nav-item float-right"><a class="nav-link" href="#">Categories</a></li>
+							</ul>
+							<a class="btn btn-danger" href="/logout">Log Out</a>
+						</div>
 					</div>
-				</form>
-			</div>
-			<div class="col-md-6">
-				<form class="form-inline">
-					<div class="form-group">
-						<label for="sellingPrice">Current Bid </label> <input
-							type="number" id="sellingPrice" class="form-control">
-					</div>
-					<button id="send" class="btn btn-default" type="submit">Send</button>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<form class="form-inline">
-					<label>Highest Bid </label> 
-					<label id="sellingPrice">${sellingPrice } </label>
-				</form>
-			</div>
-		</div>
-	</div>
+				</nav>
+				<div class="alert alert-success hidden" id="highBidAlert" style="display: none;" role="alert">
+					You Are Highest Bidder
+				</div>
+				<div class="alert alert-warning" id="outBidAlert" style="display: none;">
+					You Have Been Outbid! Bid Again
+				</div>
+				<span>Bid By: <span id="userName"></span></span>
+				<span>Current Bid: <span align="center" id="currentBid"></span></span>
+					<br>
 
-</body>
-</html>
+
+					<form method="post" id="team">
+						<input type="number" id="newBid" readonly name="bid"> <button type="button" id="submitBid"
+							onclick="sendBid()">Submit Bid</button>
+					</form>
+			</body>
+			<script src="/js/bidding.js"></script>
+
+			</html>

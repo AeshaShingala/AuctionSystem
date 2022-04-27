@@ -57,6 +57,7 @@ public class LotController {
 			// compare time
 			if (startTime.isBefore(auctionRepository.findById(catalogId).orElse(null).getStartTime()) || endTime.isAfter(auctionRepository.findById(catalogId).orElse(null).getEndTime()))
 				flag = 1;
+
 		}
 		
 		Category category = categoryRepository.findById(categoryId).orElse(null);

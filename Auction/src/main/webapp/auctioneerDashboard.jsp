@@ -21,10 +21,10 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item float-right"><a class="nav-link"
-						href="/auction/register">Create Auction</a></li>
-					<li class="nav-item float-right"><a class="nav-link" href="#">Update
-							Details</a></li>
+
+					<li class="nav-item float-right"><a class="nav-link" href="/auction/register">Create
+							Auction</a></li>
+                            <li class="nav-item float-right"><a class="nav-link" href="/auctioneer/update">Update Details</a></li>
 				</ul>
 				<form action="/logout" method="post">
 					<button type="submit" class="btn btn-danger">Log Out</button>

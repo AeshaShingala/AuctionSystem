@@ -30,6 +30,7 @@ public class Auction {
 	private LocalTime endTime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
+
 	//will be pending, live or closed
 	private String status="pending";
 
@@ -126,6 +127,7 @@ public class Auction {
 	public void setBidder(List<Bidder> bidder) {
 		this.bidder = bidder;
 	}
+	
 
 	public String getStatus() {
 		return status;

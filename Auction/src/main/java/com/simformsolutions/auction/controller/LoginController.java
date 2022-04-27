@@ -86,7 +86,7 @@ public class LoginController {
 		}	else {
 			response.addCookie(cookie);
 			System.out.println(cookie.getValue());
-			response.sendRedirect("/auction/register");
+			response.sendRedirect("/auctioneer/dashboard");
 		}
 	}
 

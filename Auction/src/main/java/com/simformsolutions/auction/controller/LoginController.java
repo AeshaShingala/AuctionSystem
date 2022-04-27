@@ -68,8 +68,7 @@ public class LoginController {
 
 	@RequestMapping("bidder/login/data")
 	public void bidderLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		AuctionUtility au = new AuctionUtility();
-		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
+		Cookie cookie = AuctionUtility.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
 		if(cookie == null){
 			response.sendRedirect("/bidder/login/invalid");			
 		}	else {
@@ -81,21 +80,19 @@ public class LoginController {
 
 	@RequestMapping("auctioneer/login/data")
 	public void auctioneerLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		AuctionUtility au = new AuctionUtility();
-		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
+		Cookie cookie = AuctionUtility.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
 		if(cookie == null){
 			response.sendRedirect("/auctioneer/login/invalid");
 		}	else {
 			response.addCookie(cookie);
 			System.out.println(cookie.getValue());
-			response.sendRedirect("/auction/register");
+			response.sendRedirect("/auctioneer/dashboard");
 		}
 	}
 
 	@RequestMapping(value="admin/login/data",method = RequestMethod.POST )
 	public void adminLoginData(@ModelAttribute AuthRequest authRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		AuctionUtility au = new AuctionUtility();
-		Cookie cookie = au.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
+		Cookie cookie = AuctionUtility.cookieMaker(authRequest.getEmail(),authRequest.getPassword(),authenticationManager,jwtUtil,customUserDetailsService,request);
 		if(cookie == null){
 			response.sendRedirect("/admin/login/invalid"); 	
 		}	else {

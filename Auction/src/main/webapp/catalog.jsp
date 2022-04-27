@@ -12,7 +12,7 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 
-<title>Auction Houses</title>
+<title>Auctions</title>
 </head>
 <body>
 	<div class="row">
@@ -24,10 +24,15 @@
 					<div class="card-body">
 						<h5 class="card-title">${lot.title}</h5>
 						<p class="card-text">${lot.description}</p>
+						<p class="card-text">Bidding Starts At: ${lot.startTime}  End: ${lot.endTime}</p>
 						<p class="card-text">${lot.basePrice} $ for ${lot.quantity} items</p>
-						<p class="card-text">Start: ${lot.startTime}  End: ${lot.endTime}</p>
-<%-- 					<a class="btn btn-warning" href="http://localhost:8080/deleted?id=${Lot.lotId}">Delete</a> --%>
-<%-- 					<a class="btn btn-success" href="http://localhost:8080/update?id=${Lot.lotId}">Edit</a> --%>
+						<c:if test = "${isLoggedIn}">
+							<a href="/start/${lot.lotId}" class="btn btn-primary">Start Bidding</a>
+						</c:if>
+						<c:if test = "${not isLoggedIn}">
+							<a href="/bidder/login" class="btn btn-primary">Login To Bid</a>
+						</c:if>
+
 					</div>
 				</div>
 			</div>

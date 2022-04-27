@@ -44,6 +44,6 @@ public class Category {
 
 	//change this to list
 	public void setLots(List<Lot> lots) {
-		this.lots=lots;
+		this.lots.addAll(lots);
 	}
 }

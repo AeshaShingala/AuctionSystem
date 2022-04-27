@@ -25,7 +25,7 @@ import com.simformsolutions.auction.utility.AuctionUtility;
 @Controller
 public class LotController {
 	
-	public static String uploadLotDirectory = System.getProperty("user.dir") + "/src/main/webapp/lots";
+	public static String uploadLotDirectory = System.getProperty("user.dir") + "/src/main/webapp/lotsImage";
 	
 	@Autowired
 	private LotRepository lotRepository;
@@ -58,7 +58,7 @@ public class LotController {
 			MultipartFile file = images.get(i);
 			LocalTime startTime = LocalTime.parse(startStringTimes.get((i))); 
 			LocalTime endTime = LocalTime.parse(endStringTimes.get(i)); 
-
+			
 			String fileName = AuctionUtility.saveImage(uploadLotDirectory,file);
 			listOfLots.add(new Lot( title,description,quantity,basePrice,fileName,startTime,endTime));
 			Category category = categoryRepository.findById(categoryId).orElse(null);

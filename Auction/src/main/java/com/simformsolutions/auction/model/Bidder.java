@@ -55,5 +55,23 @@ public class Bidder {
 	public void setContact(long contact) {
 		this.contact = contact;
 	}
+	public List<Lot> getLots() {
+		return lots;
+	}
+	public void setLots(List<Lot> lots) {
+		this.lots = lots;
+	}
+	public Bidder(int bidderId, String name, String email, String password, long contact, List<Lot> lots) {
+		super();
+		this.bidderId = bidderId;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.contact = contact;
+		this.lots = lots;
+	}
+	public Bidder() {
+		super();
+	}
 	
 }

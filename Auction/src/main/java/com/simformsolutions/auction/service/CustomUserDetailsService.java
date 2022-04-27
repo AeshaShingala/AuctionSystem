@@ -37,13 +37,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 		// Getting Api Path and returning appropriate object
 		String path = ServletUriComponentsBuilder.fromCurrentRequest().toUriString();
 		String user="";
-		System.out.println(path);
-		System.out.println(user);
 		String[] parts = path.split("/");
 		if (parts.length > 3 ) {
 			user = parts[3];
 		}
-		System.out.println(user);
 		
 		boolean isAuctioneer = auctioneerRepository.existsByemail(email);
 		boolean isBidder = bidderRepository.existsByemail(email);

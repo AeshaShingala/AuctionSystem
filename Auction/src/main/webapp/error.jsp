@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Auction Houses</title>
+<title>Error Found</title>
 </head>
 <body>
-
-   Display all auction entries here.
+<h1>Please <a href="/logout">Logout</a> And Try Again</h1>
 </body>
 </html>

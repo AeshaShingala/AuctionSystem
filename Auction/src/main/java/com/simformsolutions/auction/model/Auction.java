@@ -31,7 +31,6 @@ public class Auction {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
 	
-
 	public LocalTime getEndTime() {
 		return endTime;
 	}
@@ -125,5 +124,6 @@ public class Auction {
 	public void setBidder(List<Bidder> bidder) {
 		this.bidder = bidder;
 	}
+	
 
 }

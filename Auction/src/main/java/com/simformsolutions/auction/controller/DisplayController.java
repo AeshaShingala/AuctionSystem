@@ -1,7 +1,9 @@
 package com.simformsolutions.auction.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,10 +59,12 @@ public class DisplayController {
 
 	// Redirect to catalog of a particular auction
 	@RequestMapping("/showCatalog/{auctionId}")
-	public ModelAndView showCatalog(@PathVariable("auctionId") int auctionId) {
+	public ModelAndView showCatalog(@PathVariable("auctionId") int auctionId,Principal principal) {
 		ModelAndView mv = new ModelAndView("catalog");
+
 		Auction auc = auctionRepository.findById(auctionId).orElse(null);
 		mv.addObject("listOfLots", auc.getCatalog());
+		mv.addObject("isLoggedIn",principal != null);
 		return mv;
 	}
 

@@ -34,6 +34,9 @@ public class AuctioneerController {
 	
 	@GetMapping("/auctioneer/dashboard")
 	public ModelAndView auctioneerDashboard(Principal principal) {
+		if(principal == null) {
+			return new ModelAndView("error");
+		}
 		Auctioneer auctioneer = auctioneerRepository.findByemail(principal.getName());
 		return new ModelAndView("auctioneerDashboard").addObject("listOfAuctions", auctioneer.getAuctions());
 	}

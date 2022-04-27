@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -29,7 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-			FilterChain filterChain) throws ServletException, IOException {
+			FilterChain filterChain) throws ServletException, IOException , UsernameNotFoundException ,NullPointerException {
 		String authorizationHeader = null;
 		Cookie[] cookies = httpServletRequest.getCookies();
 		if (cookies != null) {
@@ -49,10 +50,15 @@ public class JwtFilter extends OncePerRequestFilter {
 		}
 
 		if (userName != null &&  SecurityContextHolder.getContext().getAuthentication() == null) {
-
-			UserDetails userDetails = service.loadUserByUsername(userName);
-
-			if (jwtUtil.validateToken(token, userDetails)) {
+			UserDetails userDetails=null;
+			try {
+				userDetails = service.loadUserByUsername(userName);
+			}
+			catch (UsernameNotFoundException e) {
+				System.out.println(e.getMessage());
+				httpServletResponse.sendRedirect("/error");
+			}
+			if (userDetails !=null  && jwtUtil.validateToken(token, userDetails) ) {
 
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());

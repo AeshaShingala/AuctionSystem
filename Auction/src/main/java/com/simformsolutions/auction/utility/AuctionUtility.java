@@ -41,7 +41,7 @@ public class AuctionUtility {
 		return fileName;
 	}
 
-	public Cookie cookieMaker(String email, String password, AuthenticationManager authenticationManager,
+	public static Cookie cookieMaker(String email, String password, AuthenticationManager authenticationManager,
 			JwtUtil jwtUtil, CustomUserDetailsService service,HttpServletRequest httpServletRequest) {
 		Cookie cookie = null;
 		try {

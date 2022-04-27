@@ -22,26 +22,30 @@
 						<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 							<li class="nav-item float-right"><a class="nav-link" href="/bidder/register">Create
 									Bidder Account</a></li>
-							<li class="nav-item float-right"><a class="nav-link"
-									href="#">Categories</a></li>
+							<li class="nav-item float-right"><a class="nav-link" href="#">Categories</a></li>
 						</ul>
-						<div class="dropdown floatleft">
-							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-								data-bs-toggle="dropdown" aria-expanded="false">
-								Login As
-							</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-								<li>
-									<a class="dropdown-item" href="auctioneer/login">Auctioneer</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="bidder/login">Bidder</a>
-								</li>
-								<li>
-									<a class="dropdown-item" href="admin/login">Admin</a>
-								</li>
-							</ul>
-						</div>
+						<c:if test="${isLoggedIn}">
+							<a class="btn btn-danger" href="/logout">Log Out</a>
+						</c:if>
+						<c:if test="${not isLoggedIn}">
+							<div class="dropdown floatleft">
+								<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+									data-bs-toggle="dropdown" aria-expanded="false">
+									Login As
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+									<li>
+										<a class="dropdown-item" href="auctioneer/login">Auctioneer</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="bidder/login">Bidder</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="admin/login">Admin</a>
+									</li>
+								</ul>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</nav>
@@ -61,7 +65,7 @@
 					</div>
 				</c:forEach>
 			</div> -->
-			
+
 			<div class="container mt-2">
 				<div class="center">
 
@@ -69,13 +73,15 @@
 						<div class="card mb-3">
 							<div class="row no-gutters">
 								<div class="col-md-4">
-									<img src="/auctionImage/${auction.image}" class="card-img" alt="..." width="250px" height="250px">
+									<img src="/auctionImage/${auction.image}" class="card-img" alt="..." width="250px"
+										height="250px">
 								</div>
 								<div class="col-md-8">
 									<div class="card-body">
 										<h5 class="card-title">${auction.title}</h5>
 										<p class="card-text">${auction.description}</p>
-										<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+										<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small>
+										</p>
 										<a href="/showCatalog/${auction.auctionId}" class="btn btn-primary">Catalog</a>
 									</div>
 								</div>

@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Bean;
 import com.simformsolutions.auction.controller.RegistrationController;
 import com.simformsolutions.auction.rabbitmq.RabbitMQListener;
 
-@SpringBootApplication(scanBasePackages = { "com.simformsolutions","com.simformsolutions.auction.utility"})
+@SpringBootApplication(scanBasePackages = { "com.simformsolutions"})
 public class AuctionApplication {
 
 	public final String QUEUE = "message_queue";

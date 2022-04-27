@@ -16,8 +16,6 @@
 			<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 			<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
 
-
-
 			<link rel="icon" href="Favicon.png">
 
 			<!-- Bootstrap CSS -->
@@ -83,7 +81,6 @@
 													</div>
 												</form:select>
 											</div>
-
 										</div>
 
 										<div id="repeat" class="card">
@@ -140,6 +137,7 @@
 															End Time:</label>&nbsp;&nbsp;
 														<input for="endime" required="required" type="time" id="endime"
 															name="endTime">
+															
 													</div>
 												</div>
 											</div>

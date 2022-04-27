@@ -1,9 +1,7 @@
 package com.simformsolutions.auction.controller;
 
 import java.security.Principal;
-import java.time.LocalTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,14 +51,8 @@ public class AuctioneerController {
 			}
 		}
 		System.out.println(cat.getCategory());
-		List<LocalTime> startLocalTimes = lots.stream().map(Lot::getStartTime).collect(Collectors.toList());
-		List<String> startTimes = startLocalTimes.stream().map(LocalTime::toString).collect(Collectors.toList());
-		
-		List<LocalTime> endLocalTimes = lots.stream().map(Lot::getEndTime).collect(Collectors.toList());
-		List<String> endTimes = endLocalTimes.stream().map(LocalTime::toString).collect(Collectors.toList());
-		
-		int sizeOfLot = lots.size();
-		ModelAndView mv = new ModelAndView("editLots");
+
+		ModelAndView mv = new ModelAndView("editCatalog");
 		return mv.addObject("auction", auction)
 				.addObject("listCategories",categoryRepository.findAll())
 				.addObject("listOfLots",lots)

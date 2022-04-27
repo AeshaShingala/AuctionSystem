@@ -4,28 +4,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.simformsolutions.auction.service.CustomUserDetailsService;
 
+//@Component
 public class AuctionUtility {
 
 //	@Autowired
 //	private JwtUtil jwtUtil;
-
+//
 //	@Autowired
 //	private AuthenticationManager authenticationManager;
 
@@ -58,4 +53,5 @@ public class AuctionUtility {
 		cookie.setMaxAge(60*60*10);
 		return cookie;
 	}
+	
 }

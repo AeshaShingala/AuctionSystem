@@ -29,17 +29,35 @@
 <title>User Registration</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
-		<div class="container">
-			<a class="navbar-brand" href="#">Create Auctioneer</a>
 
+	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark py-3">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/auctioneer/register">Create Auctioneer</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link" href="/auctioneer/login">Login</a></li>
-					<li class="nav-item active"><a class="nav-link" href="/auctioneer/register">Sign Up</a></li>
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item float-right"><a class="nav-link"
+						href="/admins">Manage Admin</a></li>
+					<li class="nav-item"><a class="nav-link "
+						aria-current="page" href="/auctioneers">Manage Auctioneers</a></li>
+					<li class="nav-item float-right"><a class="nav-link" href="/admin/register">Create Admin</a></li>
+					<!-- <li class="nav-item float-right"><a class="nav-link"
+						href="#">Add Admins</a></li> -->
+					
+						<li class="nav-item float-right"><a class="nav-link"
+							href="/auctioneers">Auctioneer Dashboard</a></li>
+					<li class="nav-item float-right"><a class="nav-link" href="/auctionhouse/register">Create
+							Auction House</a></li>
 				</ul>
-
 			</div>
+			<form action="/logout" method="post">
+				<button type="submit" class="btn btn-danger">Log Out</button>
+			</form>
 		</div>
 	</nav>
 

@@ -16,14 +16,12 @@ import com.simformsolutions.auction.model.AuctionHouse;
 import com.simformsolutions.auction.model.Auctioneer;
 import com.simformsolutions.auction.repository.AuctionHouseRepository;
 import com.simformsolutions.auction.repository.AuctionRepository;
-import com.simformsolutions.auction.repository.AuctioneerRepository;
 
 @Controller
 public class DisplayController {
 	@Autowired
 	private AuctionHouseRepository auctionHouseRepository;
-	@Autowired
-	private AuctioneerRepository auctioneerRepository;
+
 	@Autowired
 	private AuctionRepository auctionRepository;
 

@@ -65,7 +65,7 @@ public class AdminController {
 	public ModelAndView showall() {
 		ModelAndView mv = new ModelAndView("admins");
 		List<Admin> listOfAdmins = adminRepository.findAll();
-		listOfAdmins.remove(adminRepository.findByemail("mohit@proxibid.com"));
+		listOfAdmins.remove(adminRepository.findByemail("aesha@proxibid.com"));
 		mv.addObject("listOfAdmins",listOfAdmins);
 		return mv;
 	}

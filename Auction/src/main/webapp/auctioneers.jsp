@@ -28,8 +28,7 @@
 					<li class="nav-item"><a class="nav-link "
 						aria-current="page" href="/admins">Manage Admins</a></li>
 					<li class="nav-item float-right"><a class="nav-link" href="/auctioneer/register">Create Auctioneer</a></li>
-					<li class="nav-item float-right"><a class="nav-link"
-						href="#">Create auctioneers</a></li>
+					
 				</ul>
 			</div>
 			<form action="/logout" method="post">

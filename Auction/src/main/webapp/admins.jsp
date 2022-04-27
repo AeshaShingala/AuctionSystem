@@ -34,8 +34,7 @@
 						href="#">Add Admins</a></li> -->
 					<li class="nav-item float-right"><a class="nav-link"
 						href="/auctioneer/register">Create Auctioneer</a></li>
-						<li class="nav-item float-right"><a class="nav-link"
-							href="/auctioneers">Auctioneer Dashboard</a></li>
+						
 					<li class="nav-item float-right"><a class="nav-link" href="/auctionhouse/register">Create
 							Auction House</a></li>
 				</ul>

@@ -30,7 +30,8 @@ public class Auction {
 	private LocalTime endTime;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
-	
+	//will be pending, live or closed
+	private String status="pending";
 
 	public LocalTime getEndTime() {
 		return endTime;
@@ -64,12 +65,12 @@ public class Auction {
 		return catalog;
 	}
 
-//	//for single lot
-//	public void setCatalog(Lot catalog) {
-//		this.catalog.add(catalog);
+	//to append lot list
+//	public void setOneCatalog(List<Lot> catalog) {
+//		this.catalog.addAll(catalog);
 //	}
 	
-	//for list of lots
+	//to add list of lots
 	public void setCatalog(List<Lot> catalog) {
 			this.catalog= catalog;
 	}
@@ -124,6 +125,14 @@ public class Auction {
 
 	public void setBidder(List<Bidder> bidder) {
 		this.bidder = bidder;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

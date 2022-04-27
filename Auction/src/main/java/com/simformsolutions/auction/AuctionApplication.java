@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.simformsolutions.auction.controller.RegistrationController;
 
-@SpringBootApplication(scanBasePackages = { "com.simformsolutions","com.simformsolutions.auction.utility"})
+@SpringBootApplication(scanBasePackages = { "com.simformsolutions"})
 public class AuctionApplication {
 
 	public static void main(String[] args) {
